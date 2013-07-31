@@ -1,0 +1,126 @@
+<?xml version="1.0" ?>
+
+<!-- *************************************************** -->
+<!-- * A fully commented XML is diffusion_1.xml. Refer * -->
+<!-- * to it to have full information about what       * -->
+<!-- * these options mean.                             * -->
+<!-- *************************************************** -->
+
+<argos-configuration>
+
+  <!-- ************************* -->
+  <!-- * General configuration * -->
+  <!-- ************************* -->
+  <framework>
+    <system threads="0" />
+    <experiment length="100"
+                ticks_per_second="10"
+                random_seed="312" />
+  </framework>
+
+  <!-- *************** -->
+  <!-- * Controllers * -->
+  <!-- *************** -->
+  <controllers>
+
+    <footbot_nn_controller id="fnn"
+                           library="build/controllers/footbot_nn/libfootbot_nn.so">
+      <actuators>
+        <footbot_wheels implementation="default" />
+      </actuators>
+      <sensors>
+        <footbot_proximity implementation="rot_z_only" show_rays="false" calibrate="true" />
+        <footbot_light implementation="rot_z_only" show_rays="true" calibrate="true" />
+      </sensors>
+      <!--  put here data the network data (best_*.dat files) -->
+      <parameters num_inputs="48"
+                  num_outputs="2"
+                  parameter_file="embedding/galib/best_499.dat"
+                  />
+    </footbot_nn_controller>
+
+  </controllers>
+
+  <!-- ****************** -->
+  <!-- * Loop functions * -->
+  <!-- ****************** -->
+  <!-- Attribute 'trial' contains which trial to run (values: [0-4]) -->
+  <loop_functions library="build/loop_functions/evolution_loop_functions/libevolution_loop_functions.so"
+                  label="evolution_loop_functions"
+                  trial="0" />
+
+  <!-- *********************** -->
+  <!-- * Arena configuration * -->
+  <!-- *********************** -->
+  <arena size="5, 5, 1">
+
+    <!--
+        Here we just put the static elements of the environment (the walls
+        and the light).
+        The dynamic ones, in this case the foot-bot, are placed by the loop
+        functions at the beginning of each experimental run.
+    -->
+
+    <box id="wall_north"
+         position="2.5,5,0.25"
+         orientation="0,0,0"
+         size="5,0.1,0.5"
+         movable="false" />
+
+    <box id="wall_south"
+         position="2.5,0,0.25"
+         orientation="0,0,0"
+         size="5,0.1,0.5"
+         movable="false" />
+
+    <box id="wall_east"
+         position="0,2.5,0.25"
+         orientation="0,0,0"
+         size="0.1,5,0.5"
+         movable="false" />
+
+    <box id="wall_west"
+         position="5,2.5,0.25"
+         orientation="0,0,0"
+         size="0.1,5,0.5"
+         movable="false" />
+
+    <light id="light"
+           position="0,0,1"
+           orientation="0,0,0"
+           color="yellow"
+           intensity="3" />
+
+  </arena>
+
+  <!-- ******************* -->
+  <!-- * Physics engines * -->
+  <!-- ******************* -->
+  <physics_engines>
+    <dynamics2d id="dyn2d" />
+  </physics_engines>
+
+  <!-- ************************************ -->
+  <!-- * Arena -> Physics Engines mapping * -->
+  <!-- ************************************ -->
+  <arena_physics>
+    <engine id="dyn2d">
+      <entity id="wall_north" />
+      <entity id="wall_south" />
+      <entity id="wall_east" />
+      <entity id="wall_west" />
+    </engine>
+  </arena_physics>
+
+  <!-- ****************** -->
+  <!-- * Visualization * -->
+  <!-- ****************** -->
+  <visualization>
+    <qtopengl_render splash="false">
+      <camera>
+        <placement idx="0" position="2.5,2.5,6" look_at="2.5,2.5,0" lens_focal_length="20" />
+      </camera>
+    </qtopengl_render>
+  </visualization>
+
+</argos-configuration>

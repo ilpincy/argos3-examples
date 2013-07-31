@@ -1,0 +1,100 @@
+<?xml version="1.0" ?>
+<argos-configuration>
+
+  <!-- ************************* -->
+  <!-- * General configuration * -->
+  <!-- ************************* -->
+  <framework>
+    <system threads="0" />
+    <experiment length="0"
+                ticks_per_second="10"
+                random_seed="124" />
+  </framework>
+
+  <!-- *************** -->
+  <!-- * Controllers * -->
+  <!-- *************** -->
+  <controllers>
+
+    <footbot_flocking_controller id="ffc"
+                                 library="build/controllers/footbot_flocking/libfootbot_flocking.so">
+      <actuators>
+        <differential_steering implementation="default" />
+        <leds                  implementation="default" medium="leds" />
+      </actuators>
+      <sensors>
+        <footbot_light                       implementation="rot_z_only" show_rays="false" />
+        <colored_blob_omnidirectional_camera implementation="rot_z_only" medium="leds" show_rays="true" />
+      </sensors>
+      <params>
+        <wheel_turning hard_turn_angle_threshold="90"
+                       soft_turn_angle_threshold="70"
+                       no_turn_angle_threshold="10"
+                       max_speed="10" />
+        <flocking target_distance="75"
+                  gain="1000"
+                  exponent="2" />
+      </params>
+    </footbot_flocking_controller>
+
+  </controllers>
+
+  <!-- *********************** -->
+  <!-- * Arena configuration * -->
+  <!-- *********************** -->
+  <arena size="20,20,1" center="0,0,0.5" positional_grid_size="20,20,1">
+
+    <light id="light"
+           position="0,0,0.5"
+           orientation="0,0,0"
+           color="yellow"
+           intensity="3.0"
+           medium="leds" />
+
+    <!--
+        You can distribute entities randomly. Here, we distribute
+        the entities in this way:
+        - the position is uniformly distributed on the ground, in the square
+          whose corners are (4,4) and (5,5)
+        - the orientations are non-zero only when rotating around Z and chosen
+          from a gaussian distribution, whose mean is zero degrees and
+          standard deviation is 360 degrees.
+    -->
+    <distribute>
+      <position method="uniform" min="4,4,0" max="5,5,0" />
+      <orientation method="gaussian" mean="0,0,0" std_dev="360,0,0" />
+      <entity quantity="10" max_trials="100">
+        <foot-bot id="fb" omnidirectional_camera_aperture="80">
+          <controller config="ffc" />
+        </foot-bot>
+      </entity>
+    </distribute>
+
+  </arena>
+
+  <!-- ******************* -->
+  <!-- * Physics engines * -->
+  <!-- ******************* -->
+  <physics_engines>
+    <dynamics2d id="dyn2d" />
+  </physics_engines>
+
+  <!-- ********* -->
+  <!-- * Media * -->
+  <!-- ********* -->
+  <media>
+    <led id="leds" index="grid" grid_size="20,20,1" />
+  </media>
+
+  <!-- ****************** -->
+  <!-- * Visualization * -->
+  <!-- ****************** -->
+  <visualization>
+    <qt-opengl>
+      <camera>
+        <placement idx="0" position="5.33539,5.60355,1.06253" look_at="4.70428,4.92503,0.686605" lens_focal_length="20" />
+      </camera>
+    </qt-opengl>
+  </visualization>
+
+</argos-configuration>

@@ -1,0 +1,89 @@
+<?xml version="1.0" ?>
+<argos-configuration>
+
+  <!-- ************************* -->
+  <!-- * General configuration * -->
+  <!-- ************************* -->
+  <framework>
+    <system threads="0" />
+    <experiment length="0"
+                ticks_per_second="10"
+                random_seed="124" />
+  </framework>
+
+  <!-- *************** -->
+  <!-- * Controllers * -->
+  <!-- *************** -->
+  <controllers>
+
+    <footbot_synchronization_controller id="fsc"
+                                        library="build/controllers/footbot_synchronization/libfootbot_synchronization.so">
+      <actuators>
+        <leds implementation="default" medium="leds" />
+      </actuators>
+      <sensors>
+        <colored_blob_omnidirectional_camera implementation="rot_z_only" medium="leds" show_rays="true" />
+      </sensors>
+      <params />
+    </footbot_synchronization_controller>
+
+  </controllers>
+
+  <!-- *********************** -->
+  <!-- * Arena configuration * -->
+  <!-- *********************** -->
+  <arena size="2, 2, 1" center="0,0,0.5" positional_grid_size="5, 5, 1">
+
+    <box id="wall_north" size="2,0.1,0.5" movable="false">
+      <body position="0,1,0" orientation="0,0,0" />
+    </box>
+    <box id="wall_south" size="2,0.1,0.5" movable="false">
+      <body position="0,-1,0" orientation="0,0,0" />
+    </box>
+    <box id="wall_east" size="0.1,2,0.5" movable="false">
+      <body position="1,0,0" orientation="0,0,0" />
+    </box>
+    <box id="wall_west" size="0.1,2,0.5" movable="false">
+      <body position="-1,0,0" orientation="0,0,0" />
+    </box>
+
+    <!--
+       Distribute 16 entities in a 4x4 grid on the ground,
+       all facing along the X axis -->
+    <distribute>
+      <position method="grid"
+                center="0,0,0"
+                distances="0.3,0.3,0"
+                layout="4,4,1" />
+      <orientation method="constant" values="0,0,0" />
+      <entity quantity="16" max_trials="1">
+        <foot-bot id="fb">
+          <controller config="fsc" />
+        </foot-bot>
+      </entity>
+    </distribute>
+
+  </arena>
+
+  <!-- ******************* -->
+  <!-- * Physics engines * -->
+  <!-- ******************* -->
+  <physics_engines>
+    <dynamics2d id="dyn2d" />
+  </physics_engines>
+
+  <!-- ********* -->
+  <!-- * Media * -->
+  <!-- ********* -->
+  <media>
+    <led id="leds" index="grid" grid_size="5,5,1" />
+  </media>
+
+  <!-- ****************** -->
+  <!-- * Visualization * -->
+  <!-- ****************** -->
+  <visualization>
+    <qt-opengl />
+  </visualization>
+
+</argos-configuration>

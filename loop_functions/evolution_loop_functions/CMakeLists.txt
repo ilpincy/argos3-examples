@@ -1,0 +1,3 @@
+link_directories(${CMAKE_BINARY_DIR}/controllers/footbot_nn)
+add_library(evolution_loop_functions SHARED evolution_loop_functions.cpp)
+target_link_libraries(evolution_loop_functions footbot_nn argos2_simulator_dynamic_linking ${GALIB_LIBRARIES})

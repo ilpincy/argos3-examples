@@ -1,0 +1,7 @@
+add_library(footbot_foraging SHARED footbot_foraging.cpp)
+target_link_libraries(footbot_foraging
+  argos3core_simulator
+  argos3plugin_simulator_actuators
+  argos3plugin_simulator_footbot
+  argos3plugin_simulator_genericrobot
+  argos3plugin_simulator_sensors)
