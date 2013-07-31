@@ -109,19 +109,23 @@ To run an example, the configuration files have been written with the hypothesis
 in the directory where you unpacked the tar.bz2, NOT in the build/ directory. Therefore, go to that
 directory and type:
 
-$ argos3 -c xml/diffusion_1.xml
+$ argos3 -c experiments/diffusion_1.argos
 
 for the example obstacle avoidance with a single robot, 
 
-$ argos3 -c xml/diffusion_10.xml
+$ argos3 -c experiments/diffusion_10.argos
 
 for the example obstacle avoidance with 10 robots,
 
-$ argos3 -c xml/synchronization.xml
+$ argos3 -c experiments/synchronization.argos
 
-for the synchronization experiment, and
+for the synchronization experiment,
 
-$ argos3 -c xml/foraging.xml
+$ argos3 -c experiments/flocking.argos
+
+for the flocking experiment, and
+
+$ argos3 -c experiments/foraging.argos
 
 for the foraging experiment.
 The evolution experiment is divided in two parts. The
@@ -131,7 +135,7 @@ $ build/embedding/galib/argos_galib
 
 runs the evolution process. Then, the command
 
-$ argos3 -c xml/evolution-trial.xml
+$ argos3 -c experiments/evolution-trial.argos
 
 allows one to test a specific neural network.
 
