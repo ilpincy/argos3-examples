@@ -154,8 +154,7 @@
       <camera>
         <placement idx="0" position="0,0,4.34" look_at="0,0,0" lens_focal_length="20" />
       </camera>
-      <user_functions library="build/loop_functions/foraging_loop_functions/libforaging_loop_functions.so"
-                      label="foraging_qt_user_functions" />
+      <user_functions label="foraging_qt_user_functions" />
     </qt-opengl>
   </visualization>
 

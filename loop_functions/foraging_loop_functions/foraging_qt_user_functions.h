@@ -9,9 +9,13 @@ using namespace argos;
 class CForagingQTUserFunctions : public CQTOpenGLUserFunctions {
 
 public:
-   
-   virtual void Draw(CFootBotEntity& c_entity);
 
+   CForagingQTUserFunctions();
+
+   virtual ~CForagingQTUserFunctions() {}
+
+   void Draw(CFootBotEntity& c_entity);
+   
 };
 
 #endif
