@@ -92,6 +92,8 @@
   <!-- *********************** -->
   <!--
       Here you place all the objects in the arena.
+      All linear measures are expressed in meters.
+      Angles are expressed in degrees.
       The 'size' attribute contains the size of the arena around the origin.
       To get help about which entities are available, type at the command prompt:
       

@@ -18,7 +18,7 @@ To run an experiment with ARGoS, you need to define two things:
 2. the experiment configuration
 
 You find example controllers in the controllers/ directory.
-The experiment configuration files are located in the xml/ directory.
+The experiment configuration files are located in the experiments/ directory.
 
 Currently, ARGoS supports the foot-bot (a.k.a. the marXbot), and the
 e-puck. More robots will come in the future. All the examples, for the
