@@ -3,4 +3,10 @@ link_directories(
   ${CMAKE_BINARY_DIR}/controllers/footbot_nn
 )
 add_executable(argos_galib main.cpp)
-target_link_libraries(argos_galib ${GALIB_LIBRARIES} footbot_nn evolution_loop_functions argos2_common_utility argos2_simulator_dynamic_linking argos2_simulator)
+
+target_link_libraries(argos_galib
+  ${GALIB_LIBRARIES}
+  footbot_nn
+  evolution_loop_functions
+  argos3core_simulator)
+

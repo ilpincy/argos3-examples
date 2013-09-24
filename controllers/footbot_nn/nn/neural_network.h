@@ -1,7 +1,7 @@
 #ifndef NEURAL_NETWORK_H
 #define NEURAL_NETWORK_H
 
-#include <argos2/common/control_interface/ci_controller.h>
+#include <argos3/core/control_interface/ci_controller.h>
 
 using namespace argos;
 

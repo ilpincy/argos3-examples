@@ -27,14 +27,14 @@
     <footbot_nn_controller id="fnn"
                            library="build/controllers/footbot_nn/libfootbot_nn.so">
       <actuators>
-        <footbot_wheels implementation="default" />
+        <differential_steering implementation="default" />
       </actuators>
       <sensors>
-        <footbot_proximity implementation="rot_z_only" show_rays="false" calibrate="true" />
-        <footbot_light     implementation="rot_z_only" show_rays="false" calibrate="true" />
+        <footbot_proximity implementation="default"    show_rays="false" />
+        <footbot_light     implementation="rot_z_only" show_rays="false" />
       </sensors>
-      <parameters num_inputs="48"
-                  num_outputs="2" />
+      <params num_inputs="48"
+              num_outputs="2" />
     </footbot_nn_controller>
 
   </controllers>
@@ -48,7 +48,7 @@
   <!-- *********************** -->
   <!-- * Arena configuration * -->
   <!-- *********************** -->
-  <arena size="5, 5, 1">
+  <arena size="5, 5, 1" center="2.5,2.5,1" positional_grid_size="5, 5, 1">
 
     <!--
         Here we just put the static elements of the environment (the walls
@@ -57,35 +57,28 @@
         functions at the beginning of each experimental run.
     -->
 
-    <box id="wall_north"
-         position="2.5,5,0.25"
-         orientation="0,0,0"
-         size="5,0.1,0.5"
-         movable="false" />
+    <box id="wall_north" size="5,0.1,0.5" movable="false">
+      <body position="2.5,5,0" orientation="0,0,0" />
+    </box>
 
-    <box id="wall_south"
-         position="2.5,0,0.25"
-         orientation="0,0,0"
-         size="5,0.1,0.5"
-         movable="false" />
+    <box id="wall_south" size="5,0.1,0.5" movable="false">
+      <body position="2.5,0,0" orientation="0,0,0" />
+    </box>
 
-    <box id="wall_east"
-         position="0,2.5,0.25"
-         orientation="0,0,0"
-         size="0.1,5,0.5"
-         movable="false" />
+    <box id="wall_east" size="0.1,5,0.5" movable="false">
+      <body position="0,2.5,0" orientation="0,0,0" />
+    </box>
 
-    <box id="wall_west"
-         position="5,2.5,0.25"
-         orientation="0,0,0"
-         size="0.1,5,0.5"
-         movable="false" />
+    <box id="wall_west" size="0.1,5,0.5" movable="false">
+      <body position="5,2.5,0" orientation="0,0,0" />
+    </box>
 
     <light id="light"
            position="0,0,1"
            orientation="0,0,0"
            color="yellow"
-           intensity="3" />
+           intensity="3"
+           medium="leds" />
 
   </arena>
 
@@ -96,29 +89,24 @@
     <dynamics2d id="dyn2d" />
   </physics_engines>
 
-  <!-- ************************************ -->
-  <!-- * Arena -> Physics Engines mapping * -->
-  <!-- ************************************ -->
-  <arena_physics>
-    <engine id="dyn2d">
-      <entity id="wall_north" />
-      <entity id="wall_south" />
-      <entity id="wall_east" />
-      <entity id="wall_west" />
-    </engine>
-  </arena_physics>
+  <!-- ********* -->
+  <!-- * Media * -->
+  <!-- ********* -->
+  <media>
+    <led id="leds" grid_size="5, 5, 1" />
+  </media>
 
   <!-- ****************** -->
   <!-- * Visualization * -->
   <!-- ****************** -->
   <!-- We don't want nor need a visualization during evolution -->
   <visualization />
-  <!-- visualization>
-    <qtopengl_render splash="false">
-      <camera>
-        <placement idx="0" position="2.5,2.5,6" look_at="2.5,2.5,0" lens_focal_length="20" />
-      </camera>
-    </qtopengl_render>
-  </visualization -->
+  <!-- <visualization> -->
+  <!--   <qt-opengl> -->
+  <!--     <camera> -->
+  <!--       <placement idx="0" position="2.5,2.5,6" look_at="2.5,2.5,0" lens_focal_length="20" /> -->
+  <!--     </camera> -->
+  <!--   </qt-opengl> -->
+  <!-- </visualization> -->
 
 </argos-configuration>

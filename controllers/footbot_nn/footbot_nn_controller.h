@@ -5,13 +5,13 @@
  * Include some necessary headers.
  */
 /* Definition of the CCI_Controller class. */
-#include <argos2/common/control_interface/ci_controller.h>
-/* Definition of the foot-bot wheel actuator */
-#include <argos2/common/control_interface/swarmanoid/footbot/ci_footbot_wheels_actuator.h>
+#include <argos3/core/control_interface/ci_controller.h>
+/* Definition of the differential steering actuator */
+#include <argos3/plugins/robots/generic/control_interface/ci_differential_steering_actuator.h>
 /* Definition of the foot-bot proximity sensor */
-#include <argos2/common/control_interface/swarmanoid/footbot/ci_footbot_proximity_sensor.h>
+#include <argos3/plugins/robots/foot-bot/control_interface/ci_footbot_proximity_sensor.h>
 /* Definition of the foot-bot light sensor */
-#include <argos2/common/control_interface/swarmanoid/footbot/ci_footbot_light_sensor.h>
+#include <argos3/plugins/robots/foot-bot/control_interface/ci_footbot_light_sensor.h>
 /* Definition of the perceptron */
 #include "nn/perceptron.h"
 
@@ -45,8 +45,8 @@ public:
 
 private:
 
-   /* Pointer to the foot-bot wheels actuator */
-   CCI_FootBotWheelsActuator*  m_pcWheels;
+   /* Pointer to the differential steering actuator */
+   CCI_DifferentialSteeringActuator* m_pcWheels;
    /* Pointer to the foot-bot proximity sensor */
    CCI_FootBotProximitySensor* m_pcProximity;
    /* Pointer to the foot-bot light sensor */

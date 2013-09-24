@@ -2,7 +2,7 @@
 #define CTRNN_MULTILAYER_H
 
 #include "neural_network.h"
-#include <argos2/common/utility/math/range.h>
+#include <argos3/core/utility/math/range.h>
 
 class CCtrnnMultilayer : public CNeuralNetwork {
 

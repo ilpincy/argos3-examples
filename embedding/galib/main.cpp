@@ -2,8 +2,8 @@
 #include <ga/ga.h>
 
 /* ARGoS-related headers */
-#include <argos2/simulator/simulator.h>
-#include <argos2/simulator/dynamic_linking/loop_functions.h>
+#include <argos3/core/simulator/simulator.h>
+#include <argos3/core/simulator/loop_functions.h>
 
 #include <loop_functions/evolution_loop_functions/evolution_loop_functions.h>
 
@@ -86,7 +86,7 @@ int main(int argc, char** argv) {
     * manipulate an ARGoS experiment, it is enough to get its instance */
    argos::CSimulator& cSimulator = argos::CSimulator::GetInstance();
    /* Set the XML configuration file */
-   cSimulator.SetExperimentFileName("xml/evolution.xml");
+   cSimulator.SetExperimentFileName("experiments/evolution.argos");
    /* Load it to configure ARGoS */
    cSimulator.LoadExperiment();
 

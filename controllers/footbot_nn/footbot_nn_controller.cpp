@@ -26,9 +26,9 @@ void CFootBotNNController::Init(TConfigurationNode& t_node) {
     * Get sensor/actuator handles
     */
    try {
-      m_pcWheels    = dynamic_cast<CCI_FootBotWheelsActuator* >(GetRobot().GetActuator("footbot_wheels"   ));
-      m_pcProximity = dynamic_cast<CCI_FootBotProximitySensor*>(GetRobot().GetSensor  ("footbot_proximity"));
-      m_pcLight     = dynamic_cast<CCI_FootBotLightSensor*    >(GetRobot().GetSensor  ("footbot_light"    ));
+      m_pcWheels    = GetActuator<CCI_DifferentialSteeringActuator>("differential_steering");
+      m_pcProximity = GetSensor  <CCI_FootBotProximitySensor      >("footbot_proximity"    );
+      m_pcLight     = GetSensor  <CCI_FootBotLightSensor          >("footbot_light"        );
    }
    catch(CARGoSException& ex) {
       THROW_ARGOSEXCEPTION_NESTED("Error initializing sensors/actuators", ex);

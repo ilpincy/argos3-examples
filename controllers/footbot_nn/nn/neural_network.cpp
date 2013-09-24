@@ -1,5 +1,5 @@
 #include "neural_network.h"
-#include <argos2/common/utility/string_utilities.h>
+#include <argos3/core/utility/string_utilities.h>
 
 /****************************************/
 /****************************************/

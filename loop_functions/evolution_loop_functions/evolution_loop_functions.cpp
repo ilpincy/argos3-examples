@@ -1,5 +1,4 @@
 #include "evolution_loop_functions.h"
-#include <argos2/simulator/space/entities/footbot_entity.h>
 
 /****************************************/
 /****************************************/
@@ -26,18 +25,16 @@ void CEvolutionLoopFunctions::Init(TConfigurationNode& t_node) {
    /*
     * Create the random number generator
     */
-   m_pcRNG = CARGoSRandom::CreateRNG("argos");
+   m_pcRNG = CRandom::CreateRNG("argos");
 
    /*
     * Create the foot-bot and get a reference to its controller
     */
-   m_pcFootBot = &AddFootBot(
-      "fb",          // entity id
-      CVector3(),    // in the origin
-      CQuaternion(), // oriented along the X axis
-      "fnn",         // controller id as set in the XML
-      "dyn2d"        // physics engine id
+   m_pcFootBot = new CFootBotEntity(
+      "fb",    // entity id
+      "fnn"    // controller id as set in the XML
       );
+   CallEntityOperation<CSpaceOperationAddEntity, CSpace, void>(m_cSpace, *m_pcFootBot);
    m_pcController = &dynamic_cast<CFootBotNNController&>(m_pcFootBot->GetControllableEntity().GetController());
 
    /*
@@ -96,7 +93,6 @@ void CEvolutionLoopFunctions::Reset() {
              << ">"
              << std::endl;
    }
-      
 }
 
 /****************************************/

@@ -2,8 +2,9 @@
 #include <controllers/footbot_nn/footbot_nn_controller.h>
 
 /* ARGoS-related headers */
-#include <argos2/simulator/dynamic_linking/loop_functions.h>
-#include <argos2/common/utility/argos_random.h>
+#include <argos3/core/simulator/loop_functions.h>
+#include <argos3/core/utility/math/rng.h>
+#include <argos3/plugins/robots/foot-bot/simulator/footbot_entity.h>
 
 /* GA-related headers */
 #include <ga/ga.h>
@@ -69,7 +70,7 @@ private:
    CFootBotEntity* m_pcFootBot;
    CFootBotNNController* m_pcController;
    Real* m_pfControllerParams;
-   CARGoSRandom::CRNG* m_pcRNG;
+   CRandom::CRNG* m_pcRNG;
 
 
 };
