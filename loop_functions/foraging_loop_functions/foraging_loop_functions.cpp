@@ -1,7 +1,6 @@
 #include "foraging_loop_functions.h"
 #include <argos3/core/simulator/simulator.h>
 #include <argos3/core/utility/configuration/argos_configuration.h>
-//#include <argos3/core/utility/datatypes/any.h>
 #include <argos3/plugins/robots/foot-bot/simulator/footbot_entity.h>
 #include <controllers/footbot_foraging/footbot_foraging.h>
 
@@ -26,7 +25,7 @@ void CForagingLoopFunctions::Init(TConfigurationNode& t_node) {
    try {
       TConfigurationNode& tForaging = GetNode(t_node, "foraging");
       /* Get a pointer to the floor entity */
-      m_pcFloor = &m_cSpace.GetFloorEntity();
+      m_pcFloor = &GetSpace().GetFloorEntity();
       /* Get the number of food items we want to be scattered from XML */
       UInt32 unFoodItems;
       GetNodeAttribute(tForaging, "items", unFoodItems);
@@ -111,7 +110,7 @@ void CForagingLoopFunctions::PreStep() {
    UInt32 unWalkingFBs = 0;
    UInt32 unRestingFBs = 0;
    /* Check whether a robot is on a food item */
-   CSpace::TMapPerType& m_cFootbots = m_cSpace.GetEntitiesByType("foot-bot");
+   CSpace::TMapPerType& m_cFootbots = GetSpace().GetEntitiesByType("foot-bot");
 
    for(CSpace::TMapPerType::iterator it = m_cFootbots.begin();
        it != m_cFootbots.end();
@@ -171,7 +170,7 @@ void CForagingLoopFunctions::PreStep() {
    /* Update energy expediture due to walking robots */
    m_nEnergy -= unWalkingFBs * m_unEnergyPerWalkingRobot;
    /* Output stuff to file */
-   m_cOutput << m_cSpace.GetSimulationClock() << "\t"
+   m_cOutput << GetSpace().GetSimulationClock() << "\t"
              << unWalkingFBs << "\t"
              << unRestingFBs << "\t"
              << m_unCollectedFood << "\t"
