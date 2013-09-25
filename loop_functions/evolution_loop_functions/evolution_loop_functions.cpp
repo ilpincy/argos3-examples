@@ -34,7 +34,7 @@ void CEvolutionLoopFunctions::Init(TConfigurationNode& t_node) {
       "fb",    // entity id
       "fnn"    // controller id as set in the XML
       );
-   CallEntityOperation<CSpaceOperationAddEntity, CSpace, void>(m_cSpace, *m_pcFootBot);
+   AddEntity(*m_pcFootBot);
    m_pcController = &dynamic_cast<CFootBotNNController&>(m_pcFootBot->GetControllableEntity().GetController());
 
    /*
