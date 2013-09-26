@@ -3,9 +3,9 @@
  *
  * An example gripping controller for the foot-bot.
  *
- * The controller uses the the wheels to move the robot around, and the gripper
- * to transport the target object (a cylinder). The logic of this controller
- * is simple:
+ * The controller uses the the wheels to move the robot around, and the
+ * gripper to transport the target object (a cylinder). The logic of this
+ * controller is simple:
  * 1. the robot moves forward for some steps, until it finds the object;
  * 2. the robot closes the gripper;
  * 3. the robot moves backwards, dragging the object;

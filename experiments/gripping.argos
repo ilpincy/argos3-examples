@@ -38,6 +38,10 @@
       <controller config="fgc" />
     </foot-bot>
 
+    <!-- To use the cylinder as a grippable object, it is enough to
+         set its 'movable' attribute to 'true', and define its
+         mass (in kg).
+    -->
     <cylinder id="c" height="0.2" radius="0.1" mass="0.1" movable="true">
       <body position="0.5,0,0" orientation="0,0,0" />
     </cylinder>
