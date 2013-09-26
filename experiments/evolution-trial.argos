@@ -56,8 +56,8 @@
     <!--
         Here we just put the static elements of the environment (the walls
         and the light).
-        The dynamic ones, in this case the foot-bot, are placed by the loop
-        functions at the beginning of each experimental run.
+        The dynamic ones, in this case the foot-bot, are placed by the
+        loop functions at the beginning of each experimental run.
     -->
 
     <box id="wall_north" size="5,0.1,0.5" movable="false">

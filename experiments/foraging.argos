@@ -152,7 +152,10 @@
   <visualization>
     <qt-opengl>
       <camera>
-        <placement idx="0" position="0,0,4.34" look_at="0,0,0" lens_focal_length="20" />
+        <placement idx="0"
+                   position="0,0,4.34"
+                   look_at="0,0,0"
+                   lens_focal_length="20" />
       </camera>
       <user_functions label="foraging_qt_user_functions" />
     </qt-opengl>

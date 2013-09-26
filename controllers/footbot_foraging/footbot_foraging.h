@@ -162,9 +162,9 @@ public:
          there would be overcrowding of robots in the border between the
          nest and the rest of the arena. To overcome this issue, the robot
          spends some time looking for a place in the nest before finally
-         settling. The following variable contains the minimum time the robot
-         must spend in state 'return to nest' looking for a place in the nest
-         before switching to the resting state. */
+         settling. The following variable contains the minimum time the
+         robot must spend in state 'return to nest' looking for a place in
+         the nest before switching to the resting state. */
       size_t MinimumSearchForPlaceInNestTime;
       /* The time spent searching for a place in the nest */
       size_t TimeSearchingForPlaceInNest;
@@ -183,8 +183,8 @@ public:
 
    /*
     * This function initializes the controller.
-    * The 't_node' variable points to the <parameters> section in the XML file
-    * in the <controllers><footbot_foraging_controller> section.
+    * The 't_node' variable points to the <parameters> section in the XML
+    * file in the <controllers><footbot_foraging_controller> section.
     */
    virtual void Init(TConfigurationNode& t_node);
 
@@ -195,15 +195,17 @@ public:
    virtual void ControlStep();
 
    /*
-    * This function resets the controller to its state right after the Init().
+    * This function resets the controller to its state right after the
+    * Init().
     * It is called when you press the reset button in the GUI.
     */
    virtual void Reset();
 
    /*
     * Called to cleanup what done by Init() when the experiment finishes.
-    * In this example controller there is no need for clean anything up, so
-    * the function could have been omitted. It's here just for completeness.
+    * In this example controller there is no need for clean anything up,
+    * so the function could have been omitted. It's here just for
+    * completeness.
     */
    virtual void Destroy() {}
 
@@ -261,7 +263,8 @@ private:
    CVector2 DiffusionVector(bool& b_collision);
 
    /*
-    * Gets a direction vector as input and transforms it into wheel actuation.
+    * Gets a direction vector as input and transforms it into wheel
+    * actuation.
     */
    void SetWheelSpeedsFromVector(const CVector2& c_heading);
 
@@ -300,7 +303,8 @@ private:
    /* The random number generator */
    CRandom::CRNG* m_pcRNG;
 
-   /* Used in the social rule to communicate the result of the last exploration attempt */
+   /* Used in the social rule to communicate the result of the last
+    * exploration attempt */
    enum ELastExplorationResult {
       LAST_EXPLORATION_NONE = 0,    // nothing to report
       LAST_EXPLORATION_SUCCESSFUL,  // the last exploration resulted in a food item found

@@ -53,8 +53,8 @@
     <!--
         Here we just put the static elements of the environment (the walls
         and the light).
-        The dynamic ones, in this case the foot-bot, are placed by the loop
-        functions at the beginning of each experimental run.
+        The dynamic ones, in this case the foot-bot, are placed by the
+        loop functions at the beginning of each experimental run.
     -->
 
     <box id="wall_north" size="5,0.1,0.5" movable="false">
@@ -101,12 +101,5 @@
   <!-- ****************** -->
   <!-- We don't want nor need a visualization during evolution -->
   <visualization />
-  <!-- <visualization> -->
-  <!--   <qt-opengl> -->
-  <!--     <camera> -->
-  <!--       <placement idx="0" position="2.5,2.5,6" look_at="2.5,2.5,0" lens_focal_length="20" /> -->
-  <!--     </camera> -->
-  <!--   </qt-opengl> -->
-  <!-- </visualization> -->
 
 </argos-configuration>

@@ -90,10 +90,11 @@ void CFootBotForaging::SStateData::Reset() {
    RestToExploreProb = InitialRestToExploreProb;
    ExploreToRestProb = InitialExploreToRestProb;
    TimeExploringUnsuccessfully = 0;
-   /* Initially the robot is resting, and by setting RestingTime to MinimumRestingTime
-      we force the robots to make a decision at the experiment start. If
-      instead we set RestingTime to zero, we would have to wait till RestingTime reaches
-      MinimumRestingTime before something happens, which is just a waste of time. */
+   /* Initially the robot is resting, and by setting RestingTime to
+      MinimumRestingTime we force the robots to make a decision at the
+      experiment start. If instead we set RestingTime to zero, we would
+      have to wait till RestingTime reaches MinimumRestingTime before
+      something happens, which is just a waste of time. */
    TimeRested = MinimumRestingTime;
    TimeSearchingForPlaceInNest = 0;
 }
@@ -142,7 +143,8 @@ void CFootBotForaging::Init(TConfigurationNode& t_node) {
    /*
     * Initialize other stuff
     */
-   /* Create a random number generator. We use the 'argos' category so that creation, reset, seeding and cleanup are managed by ARGoS. */
+   /* Create a random number generator. We use the 'argos' category so
+      that creation, reset, seeding and cleanup are managed by ARGoS. */
    m_pcRNG = CRandom::CreateRNG("argos");
    Reset();
 }
@@ -198,12 +200,13 @@ void CFootBotForaging::UpdateState() {
     * You can say whether you are in the nest by checking the ground sensor
     * placed close to the wheel motors. It returns a value between 0 and 1.
     * It is 1 when the robot is on a white area, it is 0 when the robot
-    * is on a black area and it is around 0.5 when the robot is on a gray area. 
+    * is on a black area and it is around 0.5 when the robot is on a gray
+    * area. 
     * The foot-bot has 4 sensors like this, two in the front
-    * (corresponding to readings 0 and 1) and two in the back (corresponding
-    * to reading 2 and 3).  Here we want the back sensors (readings 2 and 3) to
-    * tell us whether we are on gray: if so, the robot is completely in the nest,
-    * otherwise it's outside.
+    * (corresponding to readings 0 and 1) and two in the back
+    * (corresponding to reading 2 and 3).  Here we want the back sensors
+    * (readings 2 and 3) to tell us whether we are on gray: if so, the
+    * robot is completely in the nest, otherwise it's outside.
     */
    if(tGroundReads[2].Value > 0.25f &&
       tGroundReads[2].Value < 0.75f &&
@@ -245,8 +248,9 @@ CVector2 CFootBotForaging::DiffusionVector(bool& b_collision) {
    for(size_t i = 0; i < tProxReads.size(); ++i) {
       cDiffusionVector += CVector2(tProxReads[i].Value, tProxReads[i].Angle);
    }
-   /* If the angle of the vector is small enough and the closest obstacle is far enough,
-      ignore the vector and go straight, otherwise return it */
+   /* If the angle of the vector is small enough and the closest obstacle
+      is far enough, ignore the vector and go straight, otherwise return
+      it */
    if(m_sDiffusionParams.GoStraightAngleRange.WithinMinBoundIncludedMaxBoundIncluded(cDiffusionVector.Angle()) &&
       cDiffusionVector.Length() < m_sDiffusionParams.Delta ) {
       b_collision = false;
@@ -331,7 +335,8 @@ void CFootBotForaging::SetWheelSpeedsFromVector(const CVector2& c_heading) {
 /****************************************/
 
 void CFootBotForaging::Rest() {
-   /* If we have stayed here enough, probabilistically switch to 'exploring' */
+   /* If we have stayed here enough, probabilistically switch to
+    * 'exploring' */
    if(m_sStateData.TimeRested > m_sStateData.MinimumRestingTime &&
       m_pcRNG->Uniform(m_sStateData.ProbRange) < m_sStateData.RestToExploreProb) {
       m_pcLEDs->SetAllColors(CColor::GREEN);
@@ -386,7 +391,8 @@ void CFootBotForaging::Explore() {
     * here we just need to read it
     */
    if(m_sFoodData.HasFoodItem) {
-      /* Apply the food rule, decreasing ExploreToRestProb and increasing RestToExploreProb */
+      /* Apply the food rule, decreasing ExploreToRestProb and increasing
+       * RestToExploreProb */
       m_sStateData.ExploreToRestProb -= m_sStateData.FoodRuleExploreToRestDeltaProb;
       m_sStateData.ProbRange.TruncValue(m_sStateData.ExploreToRestProb);
       m_sStateData.RestToExploreProb += m_sStateData.FoodRuleRestToExploreDeltaProb;
@@ -396,8 +402,8 @@ void CFootBotForaging::Explore() {
       /* Switch to 'return to nest' */
       bReturnToNest = true;
    }
-   /* Test the second condition: we probabilistically switch to 'return to nest' if we
-      have been wandering for some time and found nothing */
+   /* Test the second condition: we probabilistically switch to 'return to
+    * nest' if we have been wandering for some time and found nothing */
    else if(m_sStateData.TimeExploringUnsuccessfully > m_sStateData.MinimumUnsuccessfulExploreTime) {
       if (m_pcRNG->Uniform(m_sStateData.ProbRange) < m_sStateData.ExploreToRestProb) {
          /* Store the result of the expedition */
@@ -406,7 +412,8 @@ void CFootBotForaging::Explore() {
          bReturnToNest = true;
       }
       else {
-         /* Apply the food rule, increasing ExploreToRestProb and decreasing RestToExploreProb */
+         /* Apply the food rule, increasing ExploreToRestProb and
+          * decreasing RestToExploreProb */
          m_sStateData.ExploreToRestProb += m_sStateData.FoodRuleExploreToRestDeltaProb;
          m_sStateData.ProbRange.TruncValue(m_sStateData.ExploreToRestProb);
          m_sStateData.RestToExploreProb -= m_sStateData.FoodRuleRestToExploreDeltaProb;
@@ -430,14 +437,16 @@ void CFootBotForaging::Explore() {
       CVector2 cDiffusion = DiffusionVector(bCollision);
       /* Apply the collision rule, if a collision avoidance happened */
       if(bCollision) {
-         /* Collision avoidance happened, increase ExploreToRestProb and decrease RestToExploreProb */
+         /* Collision avoidance happened, increase ExploreToRestProb and
+          * decrease RestToExploreProb */
          m_sStateData.ExploreToRestProb += m_sStateData.CollisionRuleExploreToRestDeltaProb;
          m_sStateData.ProbRange.TruncValue(m_sStateData.ExploreToRestProb);
          m_sStateData.RestToExploreProb -= m_sStateData.CollisionRuleExploreToRestDeltaProb;
          m_sStateData.ProbRange.TruncValue(m_sStateData.RestToExploreProb);
       }
       /*
-       * If we are in the nest, we combine antiphototaxis with obstacle avoidance
+       * If we are in the nest, we combine antiphototaxis with obstacle
+       * avoidance
        * Outside the nest, we just use the diffusion vector
        */
       if(m_sStateData.InNest) {
@@ -499,9 +508,12 @@ void CFootBotForaging::ReturnToNest() {
 
 /*
  * This statement notifies ARGoS of the existence of the controller.
- * It binds the class passed as first argument to the string passed as second argument.
- * The string is then usable in the XML configuration file to refer to this controller.
- * When ARGoS reads that string in the XML file, it knows which controller class to instantiate.
+ * It binds the class passed as first argument to the string passed as
+ * second argument.
+ * The string is then usable in the XML configuration file to refer to
+ * this controller.
+ * When ARGoS reads that string in the XML file, it knows which controller
+ * class to instantiate.
  * See also the XML configuration files for an example of how this is used.
  */
 REGISTER_CONTROLLER(CFootBotForaging, "footbot_foraging_controller")

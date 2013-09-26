@@ -1,13 +1,15 @@
 /*
  * AUTHOR: Carlo Pinciroli <cpinciro@ulb.ac.be>
  *
- * An example synchronization controller for the foot-bot based on the synchronized oscillators
- * of Mirollo and Strogatz. See paper at:
+ * An example synchronization controller for the foot-bot based on the
+ * synchronized oscillators of Mirollo and Strogatz. See paper at:
  * http://www.math.pitt.edu/~bard/classes/mth3380/syncpapers/Mirollo-Strogatz.pdf
  *
- * The experiment reproduces the synchronization mechanisms presented by Mirollo and Strogatz in their paper.
- * The robots initially flash their LEDs out of synchrony. Using the camera, they can perceive
- * if other robots around have flashed their LEDs. Read the paper for more information about the details.
+ * The experiment reproduces the synchronization mechanisms presented by
+ * Mirollo and Strogatz in their paper.
+ * The robots initially flash their LEDs out of synchrony. Using the
+ * camera, they can perceive if other robots around have flashed their
+ * LEDs. Read the paper for more information about the details.
  *
  * This controller is meant to be used with the configuration file:
  *    experiments/synchronization.argos
@@ -52,7 +54,8 @@ private:
    /* The random number generator */
    CRandom::CRNG* m_pcRNG;
 
-   /* An internal counter. When the counter reaches 10, the robot flashes. */
+   /* An internal counter. When the counter reaches 10, the robot
+      flashes. */
    UInt32 m_unCounter;
    /* The counter range */
    CRange<UInt32> m_cCountRange;

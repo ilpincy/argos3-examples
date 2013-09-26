@@ -20,10 +20,12 @@ void CFootBotSynchronization::Init(TConfigurationNode& t_node) {
    m_pcCamera = GetSensor  <CCI_ColoredBlobOmnidirectionalCameraSensor>("colored_blob_omnidirectional_camera");
    /*
     * Create a random number generator.
-    * We use the 'argos' category so that creation, reset, seeding and cleanup are managed by ARGoS.
+    * We use the 'argos' category so that creation, reset, seeding and
+    * cleanup are managed by ARGoS.
     */
    m_pcRNG = CRandom::CreateRNG("argos");
-   /* To make all the robots initially out of sync, choose the value of the counter at random */
+   /* To make all the robots initially out of sync, choose the value of
+    * the counter at random */
    m_unCounter = m_pcRNG->Uniform(m_cCountRange);
    /* Switch the camera on */
    m_pcCamera->Enable();
@@ -75,8 +77,10 @@ void CFootBotSynchronization::ControlStep() {
 void CFootBotSynchronization::Reset() {
    /*
     * Reset the controller.
-    * This means bringing the controller to the same state as when Init() finished its execution.
-    * Since we created the RNG in the 'argos' category, we don't need to reset it.
+    * This means bringing the controller to the same state as when Init()
+    * finished its execution.
+    * Since we created the RNG in the 'argos' category, we don't need to
+    * reset it.
     * The only thing we need to do here is resetting the counter.
     */
    m_unCounter = m_pcRNG->Uniform(m_cCountRange);

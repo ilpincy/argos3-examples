@@ -24,9 +24,9 @@ void CFootBotDiffusion::Init(TConfigurationNode& t_node) {
    /*
     * Get sensor/actuator handles
     *
-    * The passed string (ex. "differential_steering") corresponds to the XML tag of the
-    * device whose handle we want to have. For a list of allowed values, type at the
-    * command prompt:
+    * The passed string (ex. "differential_steering") corresponds to the
+    * XML tag of the device whose handle we want to have. For a list of
+    * allowed values, type at the command prompt:
     *
     * $ argos3 -q actuators
     *
@@ -36,19 +36,21 @@ void CFootBotDiffusion::Init(TConfigurationNode& t_node) {
     *
     * to have a list of all the possible sensors.
     *
-    * NOTE: ARGoS creates and initializes actuators and sensors internally, on the basis of
-    *       the lists provided the configuration file at the
-    *       <controllers><footbot_diffusion><actuators> and
-    *       <controllers><footbot_diffusion><sensors> sections. If you forgot to
-    *       list a device in the XML and then you request it here, an error occurs.
+    * NOTE: ARGoS creates and initializes actuators and sensors
+    * internally, on the basis of the lists provided the configuration
+    * file at the <controllers><footbot_diffusion><actuators> and
+    * <controllers><footbot_diffusion><sensors> sections. If you forgot to
+    * list a device in the XML and then you request it here, an error
+    * occurs.
     */
    m_pcWheels    = GetActuator<CCI_DifferentialSteeringActuator>("differential_steering");
    m_pcProximity = GetSensor  <CCI_FootBotProximitySensor      >("footbot_proximity"    );
    /*
     * Parse the configuration file
     *
-    * The user defines this part. Here, the algorithm accepts three parameters and it's nice to
-    * put them in the config file so we don't have to recompile if we want to try other settings.
+    * The user defines this part. Here, the algorithm accepts three
+    * parameters and it's nice to put them in the config file so we don't
+    * have to recompile if we want to try other settings.
     */
    GetNodeAttributeOrDefault(t_node, "alpha", m_cAlpha, m_cAlpha);
    m_cGoStraightAngleRange.Set(-ToRadians(m_cAlpha), ToRadians(m_cAlpha));
@@ -68,8 +70,9 @@ void CFootBotDiffusion::ControlStep() {
       cAccumulator += CVector2(tProxReads[i].Value, tProxReads[i].Angle);
    }
    cAccumulator /= tProxReads.size();
-   /* If the angle of the vector is small enough and the closest obstacle is far enough,
-      continue going straight, otherwise curve a little */
+   /* If the angle of the vector is small enough and the closest obstacle
+    * is far enough, continue going straight, otherwise curve a little
+    */
    CRadians cAngle = cAccumulator.Angle();
    if(m_cGoStraightAngleRange.WithinMinBoundIncludedMaxBoundIncluded(cAngle) &&
       cAccumulator.Length() < m_fDelta ) {
@@ -92,9 +95,12 @@ void CFootBotDiffusion::ControlStep() {
 
 /*
  * This statement notifies ARGoS of the existence of the controller.
- * It binds the class passed as first argument to the string passed as second argument.
- * The string is then usable in the configuration file to refer to this controller.
- * When ARGoS reads that string in the configuration file, it knows which controller class to instantiate.
+ * It binds the class passed as first argument to the string passed as
+ * second argument.
+ * The string is then usable in the configuration file to refer to this
+ * controller.
+ * When ARGoS reads that string in the configuration file, it knows which
+ * controller class to instantiate.
  * See also the configuration files for an example of how this is used.
  */
 REGISTER_CONTROLLER(CFootBotDiffusion, "footbot_diffusion_controller")
