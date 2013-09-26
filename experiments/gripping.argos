@@ -1,0 +1,73 @@
+<?xml version="1.0" ?>
+<argos-configuration>
+
+  <!-- ************************* -->
+  <!-- * General configuration * -->
+  <!-- ************************* -->
+  <framework>
+    <system threads="0" />
+    <experiment length="20"
+                ticks_per_second="10"
+                random_seed="124" />
+  </framework>
+
+  <!-- *************** -->
+  <!-- * Controllers * -->
+  <!-- *************** -->
+  <controllers>
+
+    <footbot_gripping_controller id="fgc"
+                                 library="build/controllers/footbot_gripping/libfootbot_gripping.so">
+      <actuators>
+        <differential_steering implementation="default" />
+        <footbot_gripper       implementation="default" />
+      </actuators>
+      <sensors />
+      <params />
+    </footbot_gripping_controller>
+
+  </controllers>
+
+  <!-- *********************** -->
+  <!-- * Arena configuration * -->
+  <!-- *********************** -->
+  <arena size="2,2,1" center="0,0,0.5" positional_grid_size="2,2,1">
+
+    <foot-bot id="f">
+      <body position="0,0,0" orientation="0,0,0" />
+      <controller config="fgc" />
+    </foot-bot>
+
+    <cylinder id="c" height="0.2" radius="0.1" mass="0.1" movable="true">
+      <body position="0.5,0,0" orientation="0,0,0" />
+    </cylinder>
+
+  </arena>
+
+  <!-- ******************* -->
+  <!-- * Physics engines * -->
+  <!-- ******************* -->
+  <physics_engines>
+    <dynamics2d id="dyn2d" />
+  </physics_engines>
+
+  <!-- ********* -->
+  <!-- * Media * -->
+  <!-- ********* -->
+  <media />
+
+  <!-- ****************** -->
+  <!-- * Visualization * -->
+  <!-- ****************** -->
+  <visualization>
+    <qt-opengl>
+      <camera>
+        <placement idx="0"
+                   position="0.251795,1.03178,0.515305"
+                   look_at="0.233654,0.0876767,0.186165"
+                   lens_focal_length="20" />
+      </camera>
+    </qt-opengl>
+  </visualization>
+
+</argos-configuration>

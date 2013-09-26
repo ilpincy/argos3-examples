@@ -35,10 +35,10 @@ square environment.
 The source files in controllers/footbot_diffusion/ contain all the basic information
 about how to write a robot controller. Follow the comments and you should grasp the first steps.
 The configuration files for this experiment are two: experiments/diffusion_1.argos and
-experiments/diffusion_10.argos. The first file places a single foot-bot in the environment. In
-this file all the basics about ARGoS configuration are covered. The second file is to see
-10 robots in action. This files shows how to distribute randomly 10 robots in the environment
-without having to place them manually.
+experiments/diffusion_10.argos. The first file places a single foot-bot in an obstacle-free environment.
+In this file all the basics about ARGoS configuration are covered. The second file is to see
+10 robots in action. This files shows how to distribute objects (robots and obstacles) randomly in
+the environment without having to place them manually.
 
 SYNCHRONIZATION
 
@@ -53,9 +53,15 @@ The robots light up their central LED (called the beacon) in red. They use the o
 to detect robots around and calculate the Lennard-Jones interaction force to all of them. The robots
 collectively go to a light source located in the origin.
 
+GRIPPING
+
+This examples shows how to use a cylinder as a movable object. Using a simple time-based logic, a
+foot-bot moves towards the cylinder, grips it, moves backwards dragging it, and finally releases
+it while keeping the backwards motion.
+
 FORAGING
 
-This example experiment is a complete experiment. It shows how to interact with the simulation through
+This example is a complete experiment. It shows how to interact with the simulation through
 the loop functions and the how to draw on the OpenGL graphical visualization through the Qt user
 functions. The arena is divided in two areas: a grey area that serves as nest, where the robots are
 initially deployed; and a white area where food items are scattered. The task of the foot-bots is

@@ -1,4 +1,4 @@
-add_library(footbot_flocking MODULE footbot_flocking.cpp)
+add_library(footbot_flocking MODULE footbot_flocking.h footbot_flocking.cpp)
 target_link_libraries(footbot_flocking
   argos3core_simulator
   argos3plugin_simulator_actuators
