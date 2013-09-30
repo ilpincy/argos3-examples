@@ -32,7 +32,7 @@
   <!-- *********************** -->
   <!-- * Arena configuration * -->
   <!-- *********************** -->
-  <arena size="4, 4, 1" center="0,0,0.5" positional_grid_size="6, 6, 1">
+  <arena size="4, 4, 1" center="0,0,0.5">
 
     <box id="wall_north" size="4,0.1,0.5" movable="false">
       <body position="0,2,0" orientation="0,0,0" />

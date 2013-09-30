@@ -32,7 +32,7 @@
   <!-- *********************** -->
   <!-- * Arena configuration * -->
   <!-- *********************** -->
-  <arena size="2, 2, 1" center="0,0,0.5" positional_grid_size="5, 5, 1">
+  <arena size="2, 2, 1" center="0,0,0.5">
 
     <box id="wall_north" size="2,0.1,0.5" movable="false">
       <body position="0,1,0" orientation="0,0,0" />
@@ -76,7 +76,7 @@
   <!-- * Media * -->
   <!-- ********* -->
   <media>
-    <led id="leds" index="grid" grid_size="5,5,1" />
+    <led id="leds" />
   </media>
 
   <!-- ****************** -->

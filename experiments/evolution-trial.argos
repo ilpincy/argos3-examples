@@ -51,7 +51,7 @@
   <!-- *********************** -->
   <!-- * Arena configuration * -->
   <!-- *********************** -->
-  <arena size="5, 5, 1" center="2.5,2.5,1" positional_grid_size="5, 5, 1">
+  <arena size="5, 5, 1" center="2.5,2.5,1">
 
     <!--
         Here we just put the static elements of the environment (the walls
@@ -96,7 +96,7 @@
   <!-- * Media * -->
   <!-- ********* -->
   <media>
-    <led id="leds" grid_size="5, 5, 1" />
+    <led id="leds" />
   </media>
 
   <!-- ****************** -->

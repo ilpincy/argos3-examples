@@ -31,7 +31,7 @@
   <!-- *********************** -->
   <!-- * Arena configuration * -->
   <!-- *********************** -->
-  <arena size="2,2,1" center="0,0,0.5" positional_grid_size="2,2,1">
+  <arena size="2,2,1" center="0,0,0.5">
 
     <foot-bot id="f">
       <body position="0,0,0" orientation="0,0,0" />

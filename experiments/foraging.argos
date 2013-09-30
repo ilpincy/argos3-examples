@@ -75,7 +75,7 @@
   <!-- *********************** -->
   <!-- * Arena configuration * -->
   <!-- *********************** -->
-  <arena size="4, 4, 2" center="0,0,1" positional_grid_size="4, 4, 1">
+  <arena size="4, 4, 2" center="0,0,1">
 
     <floor id="floor"
            source="loop_functions"
@@ -142,8 +142,8 @@
   <!-- * Media * -->
   <!-- ********* -->
   <media>
-    <range_and_bearing id="rab" grid_size="4, 4, 1" />
-    <led id="leds" grid_size="4, 4, 1" />
+    <range_and_bearing id="rab" />
+    <led id="leds" />
   </media>
 
   <!-- ****************** -->
