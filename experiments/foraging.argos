@@ -75,7 +75,7 @@
   <!-- *********************** -->
   <!-- * Arena configuration * -->
   <!-- *********************** -->
-  <arena size="4, 4, 2" center="0,0,1">
+  <arena size="5, 5, 2" center="0,0,1">
 
     <floor id="floor"
            source="loop_functions"
