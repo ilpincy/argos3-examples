@@ -51,7 +51,7 @@
   <!-- *********************** -->
   <!-- * Arena configuration * -->
   <!-- *********************** -->
-  <arena size="6, 6, 1" center="2.5,2.5,1">
+  <arena size="6, 6, 2" center="2.5,2.5,1">
 
     <!--
         Here we just put the static elements of the environment (the walls
