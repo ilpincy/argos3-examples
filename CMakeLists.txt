@@ -9,6 +9,10 @@ find_package(PkgConfig)
 pkg_check_modules(ARGOS REQUIRED argos3_simulator)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${ARGOS_PREFIX}/share/argos3/cmake)
 
+# Check whether all the necessary libs have been installed to compile the
+# code that depends on Qt and OpenGL
+include(ARGoSCheckQTOpenGL)
+
 # Look for the (optional) galib library
 find_package(GALIB)
 if(GALIB_FOUND)

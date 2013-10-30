@@ -1,10 +1,10 @@
 <?xml version="1.0" ?>
 
-<!-- ************************************************** -->
-<!-- * A fully commented XML is diffusion.xml. Refer  * -->
-<!-- * to it to have full information about what      * -->
-<!-- * these options mean.                            * -->
-<!-- ************************************************** -->
+<!-- *************************************************** -->
+<!-- * A fully commented XML is diffusion_1.xml. Refer * -->
+<!-- * to it to have full information about what       * -->
+<!-- * these options mean.                             * -->
+<!-- *************************************************** -->
 
 <argos-configuration>
 
