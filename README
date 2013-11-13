@@ -109,6 +109,25 @@ If you find no error, you're ready to go to the next phase.
 
 
 
+*** TROUBLESHOOTING ***
+
+When you launch one of the two 'cmake' commands, you might get an error like
+'package argos3_simulator' not found. This error has two possible causes:
+
+1. You haven't installed ARGoS3 system-wide. To fix this, install ARGoS3 through the
+packages or with the command 'sudo make install' in the ARGoS3 build directory.
+
+2. pkg-config can't find the file argos3_simulator.pc. When you install ARGoS3from a
+package, this file is located in /usr/lib/pkgconfig/. When you install ARGoS3 from the
+sources, this file is located in $CMAKE_INSTALL_PREFIX/lib/pkgconfig/. If you don't set
+$CMAKE_INSTALL_PREFIX explicitly before compiling, by default it is set to /usr/local.
+If the file is present and pkg-config can't find it, add the directory where it's located
+to the environment variable PKG_CONFIG_PATH, e.g.
+
+$ export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig/
+
+
+
 *** RUNNING THE EXAMPLES ***
 
 To run an example, the configuration files have been written with the hypothesis that you run them
