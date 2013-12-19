@@ -1,12 +1,6 @@
 cmake_minimum_required(VERSION 2.8)
 project(argos3_examples)
 
-#
-# Set compiler flags
-# We must impose the c++11 standard
-#
-set(CMAKE_CXX_FLAGS "-Wall -std=c++11")
-
 # Set the path where CMake will find additional scripts
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_SOURCE_DIR}/cmake)
 
@@ -14,6 +8,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_SOURCE_DIR}/cmake)
 find_package(PkgConfig)
 pkg_check_modules(ARGOS REQUIRED argos3_simulator)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${ARGOS_PREFIX}/share/argos3/cmake)
+message(STATUS "CMAKE_MODULE_PATH = ${CMAKE_MODULE_PATH}")
 
 # Check whether all the necessary libs have been installed to compile the
 # code that depends on Qt and OpenGL
