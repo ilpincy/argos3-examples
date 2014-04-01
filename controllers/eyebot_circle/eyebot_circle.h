@@ -10,6 +10,8 @@
 #include <argos3/plugins/robots/generic/control_interface/ci_quadrotor_position_actuator.h>
 /* Definition of the positioning sensor */
 #include <argos3/plugins/robots/generic/control_interface/ci_positioning_sensor.h>
+/* Definition of the range-and-bearing sensor */
+#include <argos3/plugins/robots/generic/control_interface/ci_range_and_bearing_sensor.h>
 
 /*
  * All the ARGoS stuff in the 'argos' namespace.
@@ -103,6 +105,9 @@ private:
    CCI_QuadRotorPositionActuator* m_pcPosAct;
    /* Pointer to the positioning sensor */
    CCI_PositioningSensor* m_pcPosSens;
+   /* Pointer to the range-and-bearing sensor */
+   CCI_RangeAndBearingSensor* m_pcRABSens;
+
    /* Current robot state */
    EState m_eState;
    /* Circle center */
@@ -111,6 +116,9 @@ private:
    CVector3 m_cTargetPos;
    /* Used to move the robot along the circle */
    UInt32 m_unWaypoint;
+
+   /* Contains the message received from the foot-bot */
+   const CCI_RangeAndBearingSensor::SPacket* m_psFBMsg;
 };
 
 #endif

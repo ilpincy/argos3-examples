@@ -9,21 +9,31 @@
     <experiment length="0" ticks_per_second="10" random_seed="12345" />
   </framework>
   
-  <!-- ****************** -->
-  <!-- * Loop functions * -->
-  <!-- ****************** -->
-  <!-- loop_functions label="test_lf" /-->
-
   <!-- *************** -->
   <!-- * Controllers * -->
   <!-- *************** -->
   <controllers>
-    <eyebot_circle_controller id="x">
+    <!-- Foot-bot controller -->
+    <footbot_circle_controller id="fcc">
+      <actuators>
+        <range_and_bearing implementation="default" />
+      </actuators>
+      <sensors>
+        <!-- Even if the foot-bot sends only, it is necessary to declare the sensor to force the rab medium
+             to register the foot-bot -->
+        <range_and_bearing implementation="medium" medium="rab" />
+      </sensors>
+      <params />
+    </footbot_circle_controller>
+    <!-- Eye-bot controller -->
+    <eyebot_circle_controller id="ecc">
       <actuators>
         <quadrotor_position implementation="default" />
+        <range_and_bearing implementation="default" />
       </actuators>
       <sensors>
         <positioning implementation="default" />
+        <range_and_bearing implementation="medium" medium="rab" show_rays="true" />
       </sensors>
       <params />
     </eyebot_circle_controller>
@@ -32,10 +42,16 @@
   <!-- *********************** -->
   <!-- * Arena configuration * -->
   <!-- *********************** -->
-  <arena size="10, 10, 5" arena_center="0, 0, 2.5" positional_grid_size="10,10,1">
-    <eye-bot id="eb">
+  <arena size="10, 10, 5" center="0, 0, 1.5" positional_grid_size="10,10,5">
+    <!-- The foot-bot rab_range is usually 3m, but in this experiment the distance between the two
+         robots is higher than that. To keep the two robots communicating, we set a large range -->
+    <foot-bot id="fb" rab_range="10">
       <body position="1,1,0" orientation="0,0,0"/>
-      <controller config="x"/>
+      <controller config="fcc"/>
+    </foot-bot>
+    <eye-bot id="eb">
+      <body position="0,0,0" orientation="0,0,0"/>
+      <controller config="ecc"/>
     </eye-bot>
   </arena>
 
@@ -49,7 +65,9 @@
   <!-- ********* -->
   <!-- * Media * -->
   <!-- ********* -->
-  <media />
+  <media>
+    <range_and_bearing id="rab" />
+  </media>
 
   <!-- ****************** -->
   <!-- * Visualization * -->

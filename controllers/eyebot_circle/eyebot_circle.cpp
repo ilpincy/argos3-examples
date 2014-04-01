@@ -28,7 +28,8 @@ static const Real PROXIMITY_TOLERANCE = 0.01f;
 
 CEyeBotCircle::CEyeBotCircle() :
    m_pcPosAct(NULL),
-   m_pcPosSens(NULL) {}
+   m_pcPosSens(NULL),
+   m_pcRABSens(NULL) {}
 
 /****************************************/
 /****************************************/
@@ -58,6 +59,7 @@ void CEyeBotCircle::Init(TConfigurationNode& t_node) {
     */
    m_pcPosAct  = GetActuator<CCI_QuadRotorPositionActuator>("quadrotor_position");
    m_pcPosSens = GetSensor  <CCI_PositioningSensor        >("positioning"       );
+   m_pcRABSens = GetSensor  <CCI_RangeAndBearingSensor    >("range_and_bearing" );
    /*
     * Initialize the state variables of the behavior
     */
@@ -68,6 +70,18 @@ void CEyeBotCircle::Init(TConfigurationNode& t_node) {
 /****************************************/
 
 void CEyeBotCircle::ControlStep() {
+   /* Get RAB message, if any */
+   RLOG << "Message received: ";
+   if(! m_pcRABSens->GetReadings().empty()) {
+      m_psFBMsg = &(m_pcRABSens->GetReadings()[0]);
+      LOG << *reinterpret_cast<const UInt64*>(m_psFBMsg->Data.ToCArray());
+   }
+   else {
+      m_psFBMsg = NULL;
+      LOG << "none";
+   }
+   LOG << std::endl;
+   /* Execute state logic */
    switch(m_eState) {
       case STATE_START:
          TakeOff();
@@ -90,6 +104,7 @@ void CEyeBotCircle::ControlStep() {
       default:
          LOGERR << "[BUG] Shouldn't be here!" << std::endl;
    }
+   /* Write debug information */
    RLOG << "Current state: " << m_eState << std::endl;
    RLOG << "Target pos: " << m_cTargetPos << std::endl;
 }
@@ -100,6 +115,8 @@ void CEyeBotCircle::ControlStep() {
 void CEyeBotCircle::Reset() {
    /* Start the behavior */
    m_eState = STATE_START;
+   /* No message received */
+   m_psFBMsg = NULL;
 }
 
 /****************************************/
