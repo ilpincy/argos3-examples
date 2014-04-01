@@ -69,6 +69,9 @@ void CEyeBotCircle::Init(TConfigurationNode& t_node) {
 
 void CEyeBotCircle::ControlStep() {
    switch(m_eState) {
+      case STATE_START:
+         TakeOff();
+         break;
       case STATE_TAKE_OFF:
          TakeOff();
          break;
@@ -95,22 +98,26 @@ void CEyeBotCircle::ControlStep() {
 /****************************************/
 
 void CEyeBotCircle::Reset() {
-   /* Start the behavior by taking off */
-   m_eState = STATE_TAKE_OFF;
-   m_cCircleCenter = m_pcPosSens->GetReading().Position + CVector3(0.0f, 0.0f, ALTITUDE);
-   m_cTargetPos = m_cCircleCenter;
-   m_pcPosAct->SetPosition(m_cTargetPos);
+   /* Start the behavior */
+   m_eState = STATE_START;
 }
 
 /****************************************/
 /****************************************/
 
 void CEyeBotCircle::TakeOff() {
-   if(Distance(m_cTargetPos, m_pcPosSens->GetReading().Position) < PROXIMITY_TOLERANCE) {
-      /* State transition */
-      m_eState = STATE_LEAVE_CIRCLE_CENTER;
-      m_cTargetPos = m_pcPosSens->GetReading().Position + CVector3(CIRCLE_RADIUS, 0.0f, 0.0f);
-      m_pcPosAct->SetPosition(m_cTargetPos);
+   if(m_eState != STATE_TAKE_OFF) {
+      /* State initialization */
+      m_eState = STATE_TAKE_OFF;
+      m_cCircleCenter = m_pcPosSens->GetReading().Position + CVector3(0.0f, 0.0f, ALTITUDE);
+      m_cTargetPos = m_cCircleCenter;
+      m_pcPosAct->SetAbsolutePosition(m_cTargetPos);
+   }
+   else {
+      if(Distance(m_cTargetPos, m_pcPosSens->GetReading().Position) < PROXIMITY_TOLERANCE) {
+         /* State transition */
+         LeaveCircleCenter();
+      }
    }
 }
 
@@ -118,10 +125,17 @@ void CEyeBotCircle::TakeOff() {
 /****************************************/
 
 void CEyeBotCircle::LeaveCircleCenter() {
-   if(Distance(m_cTargetPos, m_pcPosSens->GetReading().Position) < PROXIMITY_TOLERANCE) {
-      /* State transition */
-      m_eState = STATE_MOVE_ALONG_CIRCLE;
-      m_unWaypoint = 0;
+   if(m_eState != STATE_LEAVE_CIRCLE_CENTER) {
+      /* State initialization */
+      m_eState = STATE_LEAVE_CIRCLE_CENTER;
+      m_cTargetPos = m_pcPosSens->GetReading().Position + CVector3(CIRCLE_RADIUS, 0.0f, 0.0f);
+      m_pcPosAct->SetAbsolutePosition(m_cTargetPos);
+   }
+   else {
+      if(Distance(m_cTargetPos, m_pcPosSens->GetReading().Position) < PROXIMITY_TOLERANCE) {
+         /* State transition */
+         MoveAlongCircle();
+      }
    }
 }
 
@@ -129,21 +143,26 @@ void CEyeBotCircle::LeaveCircleCenter() {
 /****************************************/
 
 void CEyeBotCircle::MoveAlongCircle() {
-   if(m_unWaypoint >= CIRCLE_WAYPOINTS) {
-      /* State transition */
-      m_eState = STATE_GO_TO_CENTER;
-      m_cTargetPos = m_cCircleCenter;
-      m_pcPosAct->SetPosition(m_cTargetPos);
+   if(m_eState != STATE_MOVE_ALONG_CIRCLE) {
+      /* State initialization */
+      m_eState = STATE_MOVE_ALONG_CIRCLE;
+      m_unWaypoint = 0;
    }
    else {
-      /* State logic */
-      m_cTargetPos.Set(
-         CIRCLE_RADIUS * Cos(CIRCLE_SLICE * m_unWaypoint),
-         CIRCLE_RADIUS * Sin(CIRCLE_SLICE * m_unWaypoint),
-         0.0f);
-      m_cTargetPos += m_cCircleCenter;
-      m_pcPosAct->SetPosition(m_cTargetPos);
-      ++m_unWaypoint;
+      if(m_unWaypoint >= CIRCLE_WAYPOINTS) {
+         /* State transition */
+         GoToCenter();
+      }
+      else {
+         /* State logic */
+         m_cTargetPos.Set(
+            CIRCLE_RADIUS * Cos(CIRCLE_SLICE * m_unWaypoint),
+            CIRCLE_RADIUS * Sin(CIRCLE_SLICE * m_unWaypoint),
+            0.0f);
+         m_cTargetPos += m_cCircleCenter;
+         m_pcPosAct->SetAbsolutePosition(m_cTargetPos);
+         ++m_unWaypoint;
+      }
    }
 }
 
@@ -151,12 +170,17 @@ void CEyeBotCircle::MoveAlongCircle() {
 /****************************************/
 
 void CEyeBotCircle::GoToCenter() {
-   if(Distance(m_cTargetPos, m_pcPosSens->GetReading().Position) < PROXIMITY_TOLERANCE) {
-      /* State transition */
-      m_eState = STATE_LAND;
-      m_cTargetPos = m_pcPosSens->GetReading().Position;
-      m_cTargetPos.SetZ(0.0f);
-      m_pcPosAct->SetPosition(m_cTargetPos);
+   if(m_eState != STATE_GO_TO_CENTER) {
+      /* State initialization */
+      m_eState = STATE_GO_TO_CENTER;
+      m_cTargetPos = m_cCircleCenter;
+      m_pcPosAct->SetAbsolutePosition(m_cTargetPos);
+   }
+   else {
+      if(Distance(m_cTargetPos, m_pcPosSens->GetReading().Position) < PROXIMITY_TOLERANCE) {
+         /* State transition */
+         Land();
+      }
    }
 }
 
@@ -164,6 +188,13 @@ void CEyeBotCircle::GoToCenter() {
 /****************************************/
 
 void CEyeBotCircle::Land() {
+   if(m_eState != STATE_LAND) {
+      /* State initialization */
+      m_eState = STATE_LAND;
+      m_cTargetPos = m_pcPosSens->GetReading().Position;
+      m_cTargetPos.SetZ(0.0f);
+      m_pcPosAct->SetAbsolutePosition(m_cTargetPos);
+   }
 }
 
 /****************************************/

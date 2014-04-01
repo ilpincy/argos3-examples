@@ -89,7 +89,8 @@ private:
 
    /* Current robot state */
    enum EState {
-      STATE_TAKE_OFF = 0,
+      STATE_START = 0,
+      STATE_TAKE_OFF,
       STATE_LEAVE_CIRCLE_CENTER,
       STATE_MOVE_ALONG_CIRCLE,
       STATE_GO_TO_CENTER,
