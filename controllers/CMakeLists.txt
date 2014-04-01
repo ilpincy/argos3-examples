@@ -5,6 +5,7 @@ add_subdirectory(footbot_synchronization)
 add_subdirectory(footbot_flocking)
 add_subdirectory(footbot_gripping)
 add_subdirectory(footbot_foraging)
+add_subdirectory(eyebot_circle)
 
 # Compile the neural network controllers only if GALIB was found
 if(GALIB_FOUND)
