@@ -1,0 +1,78 @@
+<?xml version="1.0" ?>
+<argos-configuration>
+
+  <!-- ************************* -->
+  <!-- * General configuration * -->
+  <!-- ************************* -->
+  <framework>
+    <system threads="0" />
+    <experiment length="0" ticks_per_second="10" random_seed="12345" />
+  </framework>
+  
+  <!-- *************** -->
+  <!-- * Controllers * -->
+  <!-- *************** -->
+  <controllers>
+    <!-- Eye-bot controller -->
+    <eyebot_flocking_controller id="efc">
+      <actuators>
+        <quadrotor_position implementation="default" />
+        <range_and_bearing implementation="default" />
+      </actuators>
+      <sensors>
+        <positioning implementation="default" />
+        <range_and_bearing implementation="medium" medium="rab" show_rays="true" />
+        <eyebot_light implementation="rot_z_only" show_rays="true" />
+      </sensors>
+      <params>
+        <flocking target_distance="100"
+                  gain="25"
+                  exponent="1.5"
+                  max_interaction="0.1" />
+      </params>
+    </eyebot_flocking_controller>
+  </controllers>
+
+  <!-- *********************** -->
+  <!-- * Arena configuration * -->
+  <!-- *********************** -->
+  <arena size="30, 30, 5" center="0, 0, 1.5" positional_grid_size="30,30,5">
+    <light id="l" position="10,10,3" orientation="0,0,0" color="white" intensity="20" medium="light" />
+    <distribute>
+      <position method="uniform" min="-13,-13,0" max="-11,-11,0" />
+      <orientation method="gaussian" mean="0,0,0" std_dev="360,0,0" />
+      <entity quantity="10" max_trials="100">
+        <eye-bot id="eb" rab_range="10">
+          <controller config="efc" />
+        </eye-bot>
+      </entity>
+    </distribute>
+  </arena>
+
+  <!-- ******************* -->
+  <!-- * Physics engines * -->
+  <!-- ******************* -->
+  <physics_engines>
+    <pointmass3d id="pm3d" iterations="10" />
+  </physics_engines>
+
+  <!-- ********* -->
+  <!-- * Media * -->
+  <!-- ********* -->
+  <media>
+    <range_and_bearing id="rab" />
+    <led id="light" />
+  </media>
+
+  <!-- ****************** -->
+  <!-- * Visualization * -->
+  <!-- ****************** -->
+  <visualization>
+    <qt-opengl>
+      <camera>
+        <placement idx="0" position="-0.0395853,0.192728,22.8506" look_at="-0.0395853,0.192728,21.8506" lens_focal_length="20" />
+      </camera>
+    </qt-opengl>
+  </visualization>
+
+</argos-configuration>

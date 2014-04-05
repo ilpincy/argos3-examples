@@ -102,7 +102,7 @@ void CEyeBotCircle::ControlStep() {
          Land();
          break;
       default:
-         LOGERR << "[BUG] Shouldn't be here!" << std::endl;
+         LOGERR << "[BUG] Unknown robot state: " << m_eState << std::endl;
    }
    /* Write debug information */
    RLOG << "Current state: " << m_eState << std::endl;
