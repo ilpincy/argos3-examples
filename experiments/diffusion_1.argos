@@ -50,7 +50,7 @@
           controller.
     -->
     <footbot_diffusion_controller id="fdc"
-                                  library="build/controllers/footbot_diffusion/libfootbot_diffusion.so">
+                                  library="build/controllers/footbot_diffusion/libfootbot_diffusion">
       <!--
           The <actuators> section contains a list of the actuators used by
           this controller.
