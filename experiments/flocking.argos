@@ -17,7 +17,7 @@
   <controllers>
 
     <footbot_flocking_controller id="ffc"
-                                 library="build/controllers/footbot_flocking/libfootbot_flocking.so">
+                                 library="build/controllers/footbot_flocking/libfootbot_flocking">
       <actuators>
         <differential_steering implementation="default" />
         <leds                  implementation="default" medium="leds" />

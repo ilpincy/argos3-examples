@@ -24,7 +24,7 @@
   <controllers>
 
     <footbot_diffusion_controller id="fdc"
-                                  library="build/controllers/footbot_diffusion/libfootbot_diffusion.so">
+                                  library="build/controllers/footbot_diffusion/libfootbot_diffusion">
       <actuators>
         <differential_steering implementation="default" />
       </actuators>
@@ -39,7 +39,7 @@
   <!-- ****************** -->
   <!-- * Loop functions * -->
   <!-- ****************** -->
-  <loop_functions library="build/loop_functions/trajectory_loop_functions/libtrajectory_loop_functions.so"
+  <loop_functions library="build/loop_functions/trajectory_loop_functions/libtrajectory_loop_functions"
                   label="trajectory_loop_functions" />
 
   <!-- *********************** -->
@@ -110,7 +110,7 @@
         Check 'argos3 -q qt-opengl' for more help.
     -->
     <qt-opengl>
-      <user_functions library="build/loop_functions/trajectory_loop_functions/libtrajectory_loop_functions.so"
+      <user_functions library="build/loop_functions/trajectory_loop_functions/libtrajectory_loop_functions"
                       label="trajectory_qtuser_functions" />
     </qt-opengl>
   </visualization>

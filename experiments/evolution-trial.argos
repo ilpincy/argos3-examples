@@ -24,7 +24,7 @@
   <controllers>
 
     <footbot_nn_controller id="fnn"
-                           library="build/controllers/footbot_nn/libfootbot_nn.so">
+                           library="build/controllers/footbot_nn/libfootbot_nn">
       <actuators>
         <differential_steering implementation="default" />
       </actuators>
@@ -44,7 +44,7 @@
   <!-- * Loop functions * -->
   <!-- ****************** -->
   <!-- Attribute 'trial' contains which trial to run (values: [0-4]) -->
-  <loop_functions library="build/loop_functions/evolution_loop_functions/libevolution_loop_functions.so"
+  <loop_functions library="build/loop_functions/evolution_loop_functions/libevolution_loop_functions"
                   label="evolution_loop_functions"
                   trial="0" />
 

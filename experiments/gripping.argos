@@ -17,7 +17,7 @@
   <controllers>
 
     <footbot_gripping_controller id="fgc"
-                                 library="build/controllers/footbot_gripping/libfootbot_gripping.so">
+                                 library="build/controllers/footbot_gripping/libfootbot_gripping">
       <actuators>
         <differential_steering implementation="default" />
         <footbot_gripper       implementation="default" />
