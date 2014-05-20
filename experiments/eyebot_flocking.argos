@@ -14,7 +14,7 @@
   <!-- *************** -->
   <controllers>
     <!-- Eye-bot controller -->
-    <eyebot_flocking_controller id="efc">
+    <eyebot_flocking_controller id="efc" library="build/controllers/eyebot_flocking/libeyebot_flocking.so">
       <actuators>
         <quadrotor_position implementation="default" />
         <range_and_bearing implementation="default" />
