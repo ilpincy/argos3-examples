@@ -14,7 +14,7 @@
   <!-- *************** -->
   <controllers>
     <!-- Foot-bot controller -->
-    <footbot_circle_controller id="fcc">
+    <footbot_circle_controller id="fcc" library="build/controllers/eyebot_circle/libeyebot_circle.so">
       <actuators>
         <range_and_bearing implementation="default" />
       </actuators>
@@ -26,7 +26,7 @@
       <params />
     </footbot_circle_controller>
     <!-- Eye-bot controller -->
-    <eyebot_circle_controller id="ecc">
+    <eyebot_circle_controller id="ecc" library="build/controllers/eyebot_circle/libeyebot_circle.so">
       <actuators>
         <quadrotor_position implementation="default" />
         <range_and_bearing implementation="default" />
