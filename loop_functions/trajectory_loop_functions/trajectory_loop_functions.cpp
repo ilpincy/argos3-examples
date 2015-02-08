@@ -32,7 +32,7 @@ void CTrajectoryLoopFunctions::Init(TConfigurationNode& t_tree) {
       /* Create a waypoint vector */
       m_tWaypoints[pcFB] = std::vector<CVector3>();
       /* Add the initial position of the foot-bot */
-      m_tWaypoints[pcFB].push_back(pcFB->GetEmbodiedEntity().GetPosition());
+      m_tWaypoints[pcFB].push_back(pcFB->GetEmbodiedEntity().GetOriginAnchor().Position);
    }
 }
 
@@ -54,7 +54,7 @@ void CTrajectoryLoopFunctions::Reset() {
       /* Clear the waypoint vector */
       m_tWaypoints[pcFB].clear();
       /* Add the initial position of the foot-bot */
-      m_tWaypoints[pcFB].push_back(pcFB->GetEmbodiedEntity().GetPosition());
+      m_tWaypoints[pcFB].push_back(pcFB->GetEmbodiedEntity().GetOriginAnchor().Position);
    }
 }
 
@@ -71,9 +71,9 @@ void CTrajectoryLoopFunctions::PostStep() {
       /* Create a pointer to the current foot-bot */
       CFootBotEntity* pcFB = any_cast<CFootBotEntity*>(it->second);
       /* Add the current position of the foot-bot if it's sufficiently far from the last */
-      if(SquareDistance(pcFB->GetEmbodiedEntity().GetPosition(),
+      if(SquareDistance(pcFB->GetEmbodiedEntity().GetOriginAnchor().Position,
                         m_tWaypoints[pcFB].back()) > MIN_DISTANCE_SQUARED) {
-         m_tWaypoints[pcFB].push_back(pcFB->GetEmbodiedEntity().GetPosition());
+         m_tWaypoints[pcFB].push_back(pcFB->GetEmbodiedEntity().GetOriginAnchor().Position);
       }
    }
 }

@@ -123,8 +123,8 @@ void CForagingLoopFunctions::PreStep() {
       else ++unRestingFBs;
       /* Get the position of the foot-bot on the ground as a CVector2 */
       CVector2 cPos;
-      cPos.Set(cFootBot.GetEmbodiedEntity().GetPosition().GetX(),
-               cFootBot.GetEmbodiedEntity().GetPosition().GetY());
+      cPos.Set(cFootBot.GetEmbodiedEntity().GetOriginAnchor().Position.GetX(),
+               cFootBot.GetEmbodiedEntity().GetOriginAnchor().Position.GetY());
       /* Get food data */
       CFootBotForaging::SFoodData& sFoodData = cController.GetFoodData();
       /* The foot-bot has a food item */

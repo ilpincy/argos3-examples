@@ -2,6 +2,7 @@
 #include "footbot_flocking.h"
 /* Function definitions for XML parsing */
 #include <argos3/core/utility/configuration/argos_configuration.h>
+#include <argos3/core/utility/logging/argos_log.h>
 
 /****************************************/
 /****************************************/

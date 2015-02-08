@@ -29,8 +29,8 @@ void CTrajectoryQTUserFunctions::DrawWaypoints(const std::vector<CVector3>& c_wa
       size_t unStart = 0;
       size_t unEnd = 1;
       while(unEnd < c_waypoints.size()) {
-         DrawSegment(c_waypoints[unEnd],
-                     c_waypoints[unStart]);
+         DrawRay(CRay3(c_waypoints[unEnd],
+                       c_waypoints[unStart]));
          ++unStart;
          ++unEnd;
       }

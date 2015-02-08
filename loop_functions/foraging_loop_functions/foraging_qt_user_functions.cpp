@@ -18,7 +18,12 @@ void CForagingQTUserFunctions::Draw(CFootBotEntity& c_entity) {
    CFootBotForaging& cController = dynamic_cast<CFootBotForaging&>(c_entity.GetControllableEntity().GetController());
    CFootBotForaging::SFoodData& sFoodData = cController.GetFoodData();
    if(sFoodData.HasFoodItem) {
-      DrawCylinder(0.1f, 0.05f, CVector3(0.0f, 0.0f, 0.3f), CColor::BLACK);
+      DrawCylinder(
+         CVector3(0.0f, 0.0f, 0.3f), 
+         CQuaternion(),
+         0.1f,
+         0.05f,
+         CColor::BLACK);
    }
 }
 

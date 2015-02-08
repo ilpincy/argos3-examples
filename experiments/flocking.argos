@@ -23,7 +23,7 @@
         <leds                  implementation="default" medium="leds" />
       </actuators>
       <sensors>
-        <footbot_light                       implementation="rot_z_only" show_rays="false" />
+        <footbot_light                       implementation="rot_z_only" show_rays="true" />
         <colored_blob_omnidirectional_camera implementation="rot_z_only" medium="leds" show_rays="true" />
       </sensors>
       <params>
