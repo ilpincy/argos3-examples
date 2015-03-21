@@ -112,7 +112,7 @@ void CEvolutionLoopFunctions::ConfigureFromGenome(const GARealGenome& c_genome) 
 
 Real CEvolutionLoopFunctions::Performance() {
    /* The performance is simply the distance of the robot to the origin */
-   return m_pcFootBot->GetEmbodiedEntity().GetPosition().Length();
+   return m_pcFootBot->GetEmbodiedEntity().GetOriginAnchor().Position.Length();
 }
 
 /****************************************/
