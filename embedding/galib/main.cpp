@@ -17,31 +17,35 @@ float LaunchARGoS(GAGenome& c_genome) {
    /* Convert the received genome to the actual genome type */
    GARealGenome& cRealGenome = dynamic_cast<GARealGenome&>(c_genome);
    /* The CSimulator class of ARGoS is a singleton. Therefore, to
-    * manipulate an ARGoS experiment, it is enough to get its instance
+    * manipulate an ARGoS experiment, it is enough to get its instance.
     * This variable is declared 'static' so it is created
-    * once and then reused at each call of this function (just a
-    * little optimization) */
+    * once and then reused at each call of this function.
+    * This line would work also without 'static', but written this way
+    * it is faster. */
    static argos::CSimulator& cSimulator = argos::CSimulator::GetInstance();
    /* Get a reference to the loop functions */
    static CEvolutionLoopFunctions& cLoopFunctions = dynamic_cast<CEvolutionLoopFunctions&>(cSimulator.GetLoopFunctions());
    /*
-    * Run 5 trials and take the worst performance as final value
+    * Run 5 trials and take the worst performance as final value.
+    * Performance in this experiment is defined as the distance from the light.
+    * Thus, we keep the max distance found.
     */
-   Real fPerformance = 0.0f;
+   Real fDistance = 0.0f;
    for(size_t i = 0; i < 5; ++i) {
       /* Tell the loop functions to get ready for the i-th trial */
       cLoopFunctions.SetTrial(i);
-      /* Reset the experiment */
+      /* Reset the experiment.
+       * This internally calls also CEvolutionLoopFunctions::Reset(). */
       cSimulator.Reset();
       /* Configure the controller with the genome */
       cLoopFunctions.ConfigureFromGenome(cRealGenome);
       /* Run the experiment */
       cSimulator.Execute();
       /* Update performance */
-      fPerformance = Max(fPerformance, cLoopFunctions.Performance());
+      fDistance = Max(fDistance, cLoopFunctions.Performance());
    }
    /* Return the result of the evaluation */
-   return fPerformance;
+   return fDistance;
 }
 
 /*
@@ -85,7 +89,9 @@ int main(int argc, char** argv) {
    /* The CSimulator class of ARGoS is a singleton. Therefore, to
     * manipulate an ARGoS experiment, it is enough to get its instance */
    argos::CSimulator& cSimulator = argos::CSimulator::GetInstance();
-   /* Set the XML configuration file */
+   /* Set the .argos configuration file
+    * This is a relative path which assumed that you launch the executable
+    * from argos3-examples (as said also in the README) */
    cSimulator.SetExperimentFileName("experiments/evolution.argos");
    /* Load it to configure ARGoS */
    cSimulator.LoadExperiment();
