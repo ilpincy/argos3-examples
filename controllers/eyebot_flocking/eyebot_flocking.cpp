@@ -43,8 +43,8 @@ Real CEyeBotFlocking::SFlockingInteractionParams::GeneralizedLennardJones(Real f
 CEyeBotFlocking::CEyeBotFlocking() :
    m_pcPosAct(NULL),
    m_pcRABAct(NULL),
-   m_pcRABSens(NULL) {}
-   //m_pcLightSens(NULL) {}
+   m_pcRABSens(NULL),
+   m_pcLightSens(NULL) {}
 
 /****************************************/
 /****************************************/
