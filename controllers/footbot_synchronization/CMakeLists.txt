@@ -1,8 +1,6 @@
 add_library(footbot_synchronization MODULE footbot_synchronization.h footbot_synchronization.cpp)
 target_link_libraries(footbot_synchronization
   argos3core_simulator
-  argos3plugin_simulator_actuators
   argos3plugin_simulator_footbot
-  argos3plugin_simulator_genericrobot
-  argos3plugin_simulator_sensors)
+  argos3plugin_simulator_genericrobot)
 
