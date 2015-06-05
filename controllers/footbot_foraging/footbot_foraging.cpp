@@ -45,6 +45,7 @@ void CFootBotForaging::SDiffusionParams::Init(TConfigurationNode& t_node) {
 
 void CFootBotForaging::SWheelTurningParams::Init(TConfigurationNode& t_node) {
    try {
+      TurningMechanism = NO_TURN;
       CDegrees cAngle;
       GetNodeAttribute(t_node, "hard_turn_angle_threshold", cAngle);
       HardTurnOnAngleThreshold = ToRadians(cAngle);
