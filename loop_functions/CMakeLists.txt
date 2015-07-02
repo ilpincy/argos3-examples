@@ -7,6 +7,7 @@ add_subdirectory(foraging_loop_functions)
 if(ARGOS_COMPILE_QTOPENGL)
   add_subdirectory(trajectory_loop_functions)
   add_subdirectory(id_loop_functions)
+  add_subdirectory(manualcontrol_loop_functions)
 endif(ARGOS_COMPILE_QTOPENGL)
 
 # If GALIB was found, also descend into evolution_loop_functions

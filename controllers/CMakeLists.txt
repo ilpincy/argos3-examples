@@ -5,6 +5,7 @@ add_subdirectory(footbot_synchronization)
 add_subdirectory(footbot_flocking)
 add_subdirectory(footbot_gripping)
 add_subdirectory(footbot_foraging)
+add_subdirectory(footbot_manualcontrol)
 add_subdirectory(eyebot_circle)
 add_subdirectory(eyebot_flocking)
 
