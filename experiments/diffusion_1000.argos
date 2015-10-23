@@ -53,32 +53,32 @@
   <!-- *********************** -->
   <!-- * Arena configuration * -->
   <!-- *********************** -->
-  <arena size="36, 36, 1" center="0,0,0.5">
+  <arena size="32, 32, 1" center="0,0,0.5">
 
-    <box id="wall_north" size="36,0.1,0.5" movable="false">
-      <body position="0,18,0" orientation="0,0,0" />
+    <box id="wall_north" size="32,0.1,0.5" movable="false">
+      <body position="0,16,0" orientation="0,0,0" />
     </box>
-    <box id="wall_south" size="36,0.1,0.5" movable="false">
-      <body position="0,-18,0" orientation="0,0,0" />
+    <box id="wall_south" size="32,0.1,0.5" movable="false">
+      <body position="0,-16,0" orientation="0,0,0" />
     </box>
-    <box id="wall_east" size="0.1,36,0.5" movable="false">
-      <body position="18,0,0" orientation="0,0,0" />
+    <box id="wall_east" size="0.1,32,0.5" movable="false">
+      <body position="16,0,0" orientation="0,0,0" />
     </box>
-    <box id="wall_west" size="0.1,36,0.5" movable="false">
-      <body position="-18,0,0" orientation="0,0,0" />
+    <box id="wall_west" size="0.1,32,0.5" movable="false">
+      <body position="-16,0,0" orientation="0,0,0" />
     </box>
 
     <!--
         You can distribute entities randomly. Here, we distribute
-        10 foot-bots in this way:
+        1000 foot-bots in this way:
         - the position is uniformly distributed
-        on the ground, in the square whose corners are (-2,-2) and (2,2)
+        on the ground, in the square whose corners are (-32,-32) and (32,32)
         - the orientations are non-zero only when rotating around Z and chosen
         from a gaussian distribution, whose mean is zero degrees and
         standard deviation is 360 degrees.
     -->
     <distribute>
-      <position method="uniform" min="-18,-18,0" max="18,18,0" />
+      <position method="uniform" min="-16,-16,0" max="16,16,0" />
       <orientation method="gaussian" mean="0,0,0" std_dev="360,0,0" />
       <entity quantity="1000" max_trials="100">
         <foot-bot id="fb">
@@ -91,7 +91,7 @@
         We distribute 100 boxes uniformly in position and rotation around Z.
     -->
     <distribute>
-      <position method="uniform" min="-18,-18,0" max="18,18,0" />
+      <position method="uniform" min="-16,-16,0" max="16,16,0" />
       <orientation method="uniform" min="0,0,0" max="360,0,0" />
       <entity quantity="100" max_trials="100">
         <box id="b" size="0.3,0.3,0.5" movable="false" />
@@ -104,7 +104,7 @@
         matter)
     -->
     <distribute>
-      <position method="uniform" min="-18,-18,0" max="18,18,0" />
+      <position method="uniform" min="-16,-16,0" max="16,16,0" />
       <orientation method="constant" values="0,0,0" />
       <entity quantity="100" max_trials="100">
         <cylinder id="c" height="0.5" radius="0.15" movable="false" />
@@ -116,8 +116,222 @@
   <!-- ******************* -->
   <!-- * Physics engines * -->
   <!-- ******************* -->
+  <!--
+      Here we use 16 engines, distributed in a regular grid.  In general, the
+      engines can be distributed in any way.  Every engine occupies a prism
+      volume delimited by two faces parallel to the xy plane (top and bottom)
+      and a side surface expressed as a list of vertices (a polygon) in
+      counter-clockwise order.
+  -->
   <physics_engines>
-    <dynamics2d id="dyn2d" />
+    <!-- Engine (0,0) -->
+    <dynamics2d id="dyn2d00">
+      <boundaries>
+	<top height="1" />
+	<bottom height="0" />
+	<sides>
+	  <vertex point="-16,-16" />
+	  <vertex point="-8,-16" />
+	  <vertex point="-8,-8" />
+	  <vertex point="-16,-8" />
+	</sides>
+      </boundaries>
+    </dynamics2d>
+    <!-- Engine (1,0) -->
+    <dynamics2d id="dyn2d10">
+      <boundaries>
+	<top height="1" />
+	<bottom height="0" />
+	<sides>
+	  <vertex point="-8,-16" />
+	  <vertex point="0,-16" />
+	  <vertex point="0,-8" />
+	  <vertex point="-8,-8" />
+	</sides>
+      </boundaries>
+    </dynamics2d>
+    <!-- Engine (2,0) -->
+    <dynamics2d id="dyn2d20">
+      <boundaries>
+	<top height="1" />
+	<bottom height="0" />
+	<sides>
+	  <vertex point="0,-16" />
+	  <vertex point="8,-16" />
+	  <vertex point="8,-8" />
+	  <vertex point="0,-8" />
+	</sides>
+      </boundaries>
+    </dynamics2d>
+    <!-- Engine (3,0) -->
+    <dynamics2d id="dyn2d30">
+      <boundaries>
+	<top height="1" />
+	<bottom height="0" />
+	<sides>
+	  <vertex point="8,-16" />
+	  <vertex point="16,-16" />
+	  <vertex point="16,-8" />
+	  <vertex point="8,-8" />
+	</sides>
+      </boundaries>
+    </dynamics2d>
+    <!-- Engine (0,1) -->
+    <dynamics2d id="dyn2d01">
+      <boundaries>
+	<top height="1" />
+	<bottom height="0" />
+	<sides>
+	  <vertex point="-16,-8" />
+	  <vertex point="-8,-8" />
+	  <vertex point="-8,0" />
+	  <vertex point="-16,0" />
+	</sides>
+      </boundaries>
+    </dynamics2d>
+    <!-- Engine (1,1) -->
+    <dynamics2d id="dyn2d11">
+      <boundaries>
+	<top height="1" />
+	<bottom height="0" />
+	<sides>
+	  <vertex point="-8,-8" />
+	  <vertex point="0,-8" />
+	  <vertex point="0,0" />
+	  <vertex point="-8,0" />
+	</sides>
+      </boundaries>
+    </dynamics2d>
+    <!-- Engine (2,1) -->
+    <dynamics2d id="dyn2d21">
+      <boundaries>
+	<top height="1" />
+	<bottom height="0" />
+	<sides>
+	  <vertex point="0,-8" />
+	  <vertex point="8,-8" />
+	  <vertex point="8,0" />
+	  <vertex point="0,0" />
+	</sides>
+      </boundaries>
+    </dynamics2d>
+    <!-- Engine (3,1) -->
+    <dynamics2d id="dyn2d31">
+      <boundaries>
+	<top height="1" />
+	<bottom height="0" />
+	<sides>
+	  <vertex point="8,-8" />
+	  <vertex point="16,-8" />
+	  <vertex point="16,0" />
+	  <vertex point="8,0" />
+	</sides>
+      </boundaries>
+    </dynamics2d>
+    <!-- Engine (0,2) -->
+    <dynamics2d id="dyn2d02">
+      <boundaries>
+	<top height="1" />
+	<bottom height="0" />
+	<sides>
+	  <vertex point="-16,0" />
+	  <vertex point="-8,0" />
+	  <vertex point="-8,8" />
+	  <vertex point="-16,8" />
+	</sides>
+      </boundaries>
+    </dynamics2d>
+    <!-- Engine (1,2) -->
+    <dynamics2d id="dyn2d12">
+      <boundaries>
+	<top height="1" />
+	<bottom height="0" />
+	<sides>
+	  <vertex point="-8,0" />
+	  <vertex point="0,0" />
+	  <vertex point="0,8" />
+	  <vertex point="-8,8" />
+	</sides>
+      </boundaries>
+    </dynamics2d>
+    <!-- Engine (2,2) -->
+    <dynamics2d id="dyn2d22">
+      <boundaries>
+	<top height="1" />
+	<bottom height="0" />
+	<sides>
+	  <vertex point="0,0" />
+	  <vertex point="8,0" />
+	  <vertex point="8,8" />
+	  <vertex point="0,8" />
+	</sides>
+      </boundaries>
+    </dynamics2d>
+    <!-- Engine (3,2) -->
+    <dynamics2d id="dyn2d32">
+      <boundaries>
+	<top height="1" />
+	<bottom height="0" />
+	<sides>
+	  <vertex point="8,0" />
+	  <vertex point="16,0" />
+	  <vertex point="16,8" />
+	  <vertex point="8,8" />
+	</sides>
+      </boundaries>
+    </dynamics2d>
+    <!-- Engine (0,3) -->
+    <dynamics2d id="dyn2d03">
+      <boundaries>
+	<top height="1" />
+	<bottom height="0" />
+	<sides>
+	  <vertex point="-16,8" />
+	  <vertex point="-8,8" />
+	  <vertex point="-8,16" />
+	  <vertex point="-16,16" />
+	</sides>
+      </boundaries>
+    </dynamics2d>
+    <!-- Engine (1,3) -->
+    <dynamics2d id="dyn2d13">
+      <boundaries>
+	<top height="1" />
+	<bottom height="0" />
+	<sides>
+	  <vertex point="-8,8" />
+	  <vertex point="0,8" />
+	  <vertex point="0,16" />
+	  <vertex point="-8,16" />
+	</sides>
+      </boundaries>
+    </dynamics2d>
+    <!-- Engine (2,3) -->
+    <dynamics2d id="dyn2d23">
+      <boundaries>
+	<top height="1" />
+	<bottom height="0" />
+	<sides>
+	  <vertex point="0,8" />
+	  <vertex point="8,8" />
+	  <vertex point="8,16" />
+	  <vertex point="0,16" />
+	</sides>
+      </boundaries>
+    </dynamics2d>
+    <!-- Engine (3,3) -->
+    <dynamics2d id="dyn2d33">
+      <boundaries>
+	<top height="1" />
+	<bottom height="0" />
+	<sides>
+	  <vertex point="8,8" />
+	  <vertex point="16,8" />
+	  <vertex point="16,16" />
+	  <vertex point="8,16" />
+	</sides>
+      </boundaries>
+    </dynamics2d>
   </physics_engines>
 
   <!-- ********* -->
