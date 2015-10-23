@@ -1,0 +1,135 @@
+<?xml version="1.0" ?>
+<argos-configuration>
+
+  <!-- ************************* -->
+  <!-- * General configuration * -->
+  <!-- ************************* -->
+  <framework>
+    <!--
+	You can tell ARGoS how many threads to use to parallelize the
+	simulation and how to manage task scheduling.
+
+        'threads': Experiment with the number of threads to find the optimal
+        setting for your machine. Depending on the type of processor and the
+        other open applications, optimal values typically span between C and
+        2C, where C is the number of cores in your machine.
+
+        'method': ARGoS offers two methods to schedule task among threads.
+
+	'balance_quantity' assigns the same number of tasks to every
+	thread. This scheduling strategy is best when the simulations involve
+	large numbers of identical robots that use the same controller. This
+	is the default method if none is explicitly specified.
+
+	'balance_length': assigns a task to a thread only when the latter is
+	idle. This method allows optimal task execution when the tasks have
+	different computational cost in terms of time, which typically happens
+	when robots are heterogeneous and run diverse controllers.
+    -->
+    <system threads="4" method="balance_quantity" />
+    <experiment length="0"
+                ticks_per_second="10"
+                random_seed="124" />
+  </framework>
+
+  <!-- *************** -->
+  <!-- * Controllers * -->
+  <!-- *************** -->
+  <controllers>
+
+    <footbot_diffusion_controller id="fdc"
+                                  library="build/controllers/footbot_diffusion/libfootbot_diffusion.so">
+      <actuators>
+        <differential_steering implementation="default" />
+      </actuators>
+      <sensors>
+        <footbot_proximity implementation="default" show_rays="true" />
+      </sensors>
+      <params alpha="7.5" delta="0.1" velocity="5" />
+    </footbot_diffusion_controller>
+
+  </controllers>
+
+  <!-- *********************** -->
+  <!-- * Arena configuration * -->
+  <!-- *********************** -->
+  <arena size="36, 36, 1" center="0,0,0.5">
+
+    <box id="wall_north" size="36,0.1,0.5" movable="false">
+      <body position="0,18,0" orientation="0,0,0" />
+    </box>
+    <box id="wall_south" size="36,0.1,0.5" movable="false">
+      <body position="0,-18,0" orientation="0,0,0" />
+    </box>
+    <box id="wall_east" size="0.1,36,0.5" movable="false">
+      <body position="18,0,0" orientation="0,0,0" />
+    </box>
+    <box id="wall_west" size="0.1,36,0.5" movable="false">
+      <body position="-18,0,0" orientation="0,0,0" />
+    </box>
+
+    <!--
+        You can distribute entities randomly. Here, we distribute
+        10 foot-bots in this way:
+        - the position is uniformly distributed
+        on the ground, in the square whose corners are (-2,-2) and (2,2)
+        - the orientations are non-zero only when rotating around Z and chosen
+        from a gaussian distribution, whose mean is zero degrees and
+        standard deviation is 360 degrees.
+    -->
+    <distribute>
+      <position method="uniform" min="-18,-18,0" max="18,18,0" />
+      <orientation method="gaussian" mean="0,0,0" std_dev="360,0,0" />
+      <entity quantity="1000" max_trials="100">
+        <foot-bot id="fb">
+          <controller config="fdc" />
+        </foot-bot>
+      </entity>
+    </distribute>
+
+    <!--
+        We distribute 100 boxes uniformly in position and rotation around Z.
+    -->
+    <distribute>
+      <position method="uniform" min="-18,-18,0" max="18,18,0" />
+      <orientation method="uniform" min="0,0,0" max="360,0,0" />
+      <entity quantity="100" max_trials="100">
+        <box id="b" size="0.3,0.3,0.5" movable="false" />
+      </entity>
+    </distribute>
+
+    <!--
+        We distribute cylinders uniformly in position and with
+        constant rotation (rotating a cylinder around Z does not
+        matter)
+    -->
+    <distribute>
+      <position method="uniform" min="-18,-18,0" max="18,18,0" />
+      <orientation method="constant" values="0,0,0" />
+      <entity quantity="100" max_trials="100">
+        <cylinder id="c" height="0.5" radius="0.15" movable="false" />
+      </entity>
+    </distribute>
+
+  </arena>
+
+  <!-- ******************* -->
+  <!-- * Physics engines * -->
+  <!-- ******************* -->
+  <physics_engines>
+    <dynamics2d id="dyn2d" />
+  </physics_engines>
+
+  <!-- ********* -->
+  <!-- * Media * -->
+  <!-- ********* -->
+  <media />
+
+  <!-- ****************** -->
+  <!-- * Visualization * -->
+  <!-- ****************** -->
+  <visualization>
+    <qt-opengl />
+  </visualization>
+
+</argos-configuration>
