@@ -1,3 +1,6 @@
+#ifndef MPGA_H
+#define MPGA_H
+
 #include <vector>
 #include <argos3/core/utility/datatypes/datatypes.h>
 #include <argos3/core/utility/math/range.h>
@@ -221,3 +224,5 @@ protected:
    bool (*m_cIndComparator)(const SIndividual*,
                             const SIndividual*);
 };
+
+#endif

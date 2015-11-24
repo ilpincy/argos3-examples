@@ -1,3 +1,6 @@
+#ifndef MPGA_LOOP_FUNCTIONS_H
+#define MPGA_LOOP_FUNCTIONS_H
+
 #include <argos3/core/simulator/loop_functions.h>
 
 using namespace argos;
@@ -46,3 +49,5 @@ private:
    UInt32 m_unTrial;
 
 };
+
+#endif
