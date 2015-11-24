@@ -229,7 +229,7 @@ void CMPGA::LaunchARGoS(UInt32 un_slave_id) {
    /* Get a reference to the loop functions */
    CMPGALoopFunctions& cLoopFunctions = dynamic_cast<CMPGALoopFunctions&>(cSimulator.GetLoopFunctions());
    /* Create vector of scores */
-   std::vector<Real> vecScores(m_unPopSize, 0.0);
+   std::vector<Real> vecScores(m_unNumTrials, 0.0);
    /* Continue working until killed by parent */
    while(1) {
       /* Suspend yourself, waiting for parent's resume signal */
