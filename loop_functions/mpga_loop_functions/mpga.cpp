@@ -242,7 +242,7 @@ void CMPGA::LaunchARGoS(UInt32 un_slave_id) {
          /* Tell the loop functions to get ready for the i-th trial */
          cLoopFunctions.SetTrial(i);
          /* Reset the experiment.
-          * This internally calls also CEvolutionLoopFunctions::Reset(). */
+          * This internally calls also CMPGALoopFunctions::Reset(). */
          cSimulator.Reset();
          /* Run the experiment */
          cSimulator.Execute();
