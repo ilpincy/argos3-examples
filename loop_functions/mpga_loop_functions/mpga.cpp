@@ -262,8 +262,8 @@ void CMPGA::LaunchARGoS(UInt32 un_slave_id) {
 
 void CMPGA::Selection() {
    /* Delete all individuals apart from the top two */
-   for(UInt32 i = 2; i < m_unPopSize; ++i) {
-      delete m_tPopulation[i];
+   while(m_tPopulation.size() > 2) {
+      delete m_tPopulation.back();
       m_tPopulation.pop_back();
    }
 }
