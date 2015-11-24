@@ -144,13 +144,6 @@ void CMPGA::Evaluate() {
       /* Wait for next slave to finish */
       tSlavePID = ::waitpid(-1, &nSlaveInfo, WUNTRACED);
       /* Make sure the slave went back to sleep and didn't crash */
-      DEBUG("nSlaveInfo = %d (ifexited = %d, ifsignaled = %d, ifstopped = %d, termsig = %d, SIGTERM = %d)\n",
-            nSlaveInfo,
-            WIFEXITED(nSlaveInfo),
-            WIFSIGNALED(nSlaveInfo),
-            WIFSTOPPED(nSlaveInfo),
-            WTERMSIG(nSlaveInfo),
-            SIGTERM);
       if(!WIFSTOPPED(nSlaveInfo)) {
          LOGERR << "[FATAL] Slave process with PID " << tSlavePID << " exited, can't continue. Check file ARGoS_LOGERR_" << tSlavePID << " for more information." << std::endl;
          LOG.Flush();
