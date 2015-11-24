@@ -181,11 +181,11 @@ for the foraging experiment.
 The evolution experiment is divided in two parts. The
 command
 
-$ build/embedding/galib/argos_galib
+$ build/embedding/galib/galib_phototaxis
 
 runs the evolution process. Then, the command
 
-$ argos3 -c experiments/evolution-trial.argos
+$ argos3 -c experiments/galib-trial.argos
 
 allows one to test a specific neural network.
 

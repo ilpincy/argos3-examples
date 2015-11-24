@@ -158,7 +158,7 @@ void CMPGA::Evaluate() {
    for(UInt32 i = 0; i < m_unPopSize; ++i) {
       m_tPopulation[i]->Score = m_pcSharedMem->GetScore(i);
    }
-   /* Sort the population by score, from the highest to the lowest */
+   /* Sort the population by score, from the best to the worst */
    std::sort(m_tPopulation.begin(),
              m_tPopulation.end(),
              m_cIndComparator);
@@ -184,9 +184,11 @@ bool CMPGA::Done() const {
 /****************************************/
 /****************************************/
 
+/* Global pointer to the CMPGA object in the current slave, used by
+ * SlaveHandleSIGTERM() to perform cleanup */
 static CMPGA* GA_INSTANCE;
 
-/* SIGTERM handler for slaveren processes */
+/* SIGTERM handler for slave processes */
 void SlaveHandleSIGTERM(int) {
    argos::CSimulator::GetInstance().Destroy();
    argos::LOG.Flush();
