@@ -1,3 +1,7 @@
+#ifndef GALIB_PHOTOTAXIS_LOOP_FUNCTIONS_H
+#define GALIB_PHOTOTAXIS_LOOP_FUNCTIONS_H
+
+
 /* The NN controller */
 #include <controllers/footbot_nn/footbot_nn_controller.h>
 
@@ -36,12 +40,12 @@ static const size_t GENOME_SIZE = 98;
 
 using namespace argos;
 
-class CEvolutionLoopFunctions : public CLoopFunctions {
+class CGALibPhototaxisLoopFunctions : public CLoopFunctions {
 
 public:
 
-   CEvolutionLoopFunctions();
-   virtual ~CEvolutionLoopFunctions();
+   CGALibPhototaxisLoopFunctions();
+   virtual ~CGALibPhototaxisLoopFunctions();
 
    virtual void Init(TConfigurationNode& t_node);
    virtual void Reset();
@@ -74,3 +78,5 @@ private:
 
 
 };
+
+#endif

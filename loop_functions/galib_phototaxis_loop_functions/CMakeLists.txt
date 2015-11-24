@@ -1,8 +1,8 @@
 link_directories(${CMAKE_BINARY_DIR}/controllers/footbot_nn)
 
-add_library(evolution_loop_functions SHARED evolution_loop_functions.cpp)
+add_library(galib_phototaxis_loop_functions SHARED galib_phototaxis_loop_functions.cpp)
 
-target_link_libraries(evolution_loop_functions
+target_link_libraries(galib_phototaxis_loop_functions
   footbot_nn
   argos3core_simulator
   argos3plugin_simulator_dynamics2d

@@ -5,7 +5,7 @@
 #include <argos3/core/simulator/simulator.h>
 #include <argos3/core/simulator/loop_functions.h>
 
-#include <loop_functions/evolution_loop_functions/evolution_loop_functions.h>
+#include <loop_functions/galib_phototaxis_loop_functions/galib_phototaxis_loop_functions.h>
 
 /****************************************/
 /****************************************/
@@ -24,7 +24,7 @@ float LaunchARGoS(GAGenome& c_genome) {
     * it is faster. */
    static argos::CSimulator& cSimulator = argos::CSimulator::GetInstance();
    /* Get a reference to the loop functions */
-   static CEvolutionLoopFunctions& cLoopFunctions = dynamic_cast<CEvolutionLoopFunctions&>(cSimulator.GetLoopFunctions());
+   static CGALibPhototaxisLoopFunctions& cLoopFunctions = dynamic_cast<CGALibPhototaxisLoopFunctions&>(cSimulator.GetLoopFunctions());
    /*
     * Run 5 trials and take the worst performance as final value.
     * Performance in this experiment is defined as the distance from the light.
@@ -92,7 +92,7 @@ int main(int argc, char** argv) {
    /* Set the .argos configuration file
     * This is a relative path which assumed that you launch the executable
     * from argos3-examples (as said also in the README) */
-   cSimulator.SetExperimentFileName("experiments/evolution.argos");
+   cSimulator.SetExperimentFileName("experiments/galib.argos");
    /* Load it to configure ARGoS */
    cSimulator.LoadExperiment();
 

@@ -1,10 +1,9 @@
-#include "evolution_loop_functions.h"
+#include "mpga_phototaxis_loop_functions.h"
 
 /****************************************/
 /****************************************/
 
-CEvolutionLoopFunctions::CEvolutionLoopFunctions() :
-   m_unCurrentTrial(0),
+CMPGAPhototaxisLoopFunctions::CMPGAPhototaxisLoopFunctions() :
    m_vecInitSetup(5),
    m_pcFootBot(NULL),
    m_pcController(NULL),
@@ -14,14 +13,14 @@ CEvolutionLoopFunctions::CEvolutionLoopFunctions() :
 /****************************************/
 /****************************************/
 
-CEvolutionLoopFunctions::~CEvolutionLoopFunctions() {
+CMPGAPhototaxisLoopFunctions::~CMPGAPhototaxisLoopFunctions() {
    delete[] m_pfControllerParams;
 }
 
 /****************************************/
 /****************************************/
 
-void CEvolutionLoopFunctions::Init(TConfigurationNode& t_node) {
+void CMPGAPhototaxisLoopFunctions::Init(TConfigurationNode& t_node) {
    /*
     * Create the random number generator
     */
@@ -67,7 +66,9 @@ void CEvolutionLoopFunctions::Init(TConfigurationNode& t_node) {
     * Process trial information, if any
     */
    try {
-      GetNodeAttribute(t_node, "trial", m_unCurrentTrial);
+      UInt32 unTrial;
+      GetNodeAttribute(t_node, "trial", unTrial);
+      SetTrial(unTrial);
       Reset();
    }
    catch(CARGoSException& ex) {}
@@ -76,20 +77,20 @@ void CEvolutionLoopFunctions::Init(TConfigurationNode& t_node) {
 /****************************************/
 /****************************************/
 
-void CEvolutionLoopFunctions::Reset() {
+void CMPGAPhototaxisLoopFunctions::Reset() {
    /*
     * Move robot to the initial position corresponding to the current trial
     */
    if(!MoveEntity(
          m_pcFootBot->GetEmbodiedEntity(),             // move the body of the robot
-         m_vecInitSetup[m_unCurrentTrial].Position,    // to this position
-         m_vecInitSetup[m_unCurrentTrial].Orientation, // with this orientation
+         m_vecInitSetup[GetTrial()].Position,    // to this position
+         m_vecInitSetup[GetTrial()].Orientation, // with this orientation
          false                                         // this is not a check, leave the robot there
          )) {
       LOGERR << "Can't move robot in <"
-             << m_vecInitSetup[m_unCurrentTrial].Position
+             << m_vecInitSetup[GetTrial()].Position
              << ">, <"
-             << m_vecInitSetup[m_unCurrentTrial].Orientation
+             << m_vecInitSetup[GetTrial()].Orientation
              << ">"
              << std::endl;
    }
@@ -98,10 +99,10 @@ void CEvolutionLoopFunctions::Reset() {
 /****************************************/
 /****************************************/
 
-void CEvolutionLoopFunctions::ConfigureFromGenome(const GARealGenome& c_genome) {
+void CMPGAPhototaxisLoopFunctions::ConfigureFromGenome(const Real* pf_genome) {
    /* Copy the genes into the NN parameter buffer */
    for(size_t i = 0; i < GENOME_SIZE; ++i) {
-      m_pfControllerParams[i] = c_genome[i];
+      m_pfControllerParams[i] = pf_genome[i];
    }
    /* Set the NN parameters */
    m_pcController->GetPerceptron().SetOnlineParameters(GENOME_SIZE, m_pfControllerParams);
@@ -110,7 +111,7 @@ void CEvolutionLoopFunctions::ConfigureFromGenome(const GARealGenome& c_genome) 
 /****************************************/
 /****************************************/
 
-Real CEvolutionLoopFunctions::Performance() {
+Real CMPGAPhototaxisLoopFunctions::Score() {
    /* The performance is simply the distance of the robot to the origin */
    return m_pcFootBot->GetEmbodiedEntity().GetOriginAnchor().Position.Length();
 }
@@ -118,4 +119,4 @@ Real CEvolutionLoopFunctions::Performance() {
 /****************************************/
 /****************************************/
 
-REGISTER_LOOP_FUNCTIONS(CEvolutionLoopFunctions, "evolution_loop_functions")
+REGISTER_LOOP_FUNCTIONS(CMPGAPhototaxisLoopFunctions, "mpga_phototaxis_loop_functions")

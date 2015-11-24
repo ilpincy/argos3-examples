@@ -13,7 +13,6 @@
   <!-- ************************* -->
   <framework>
     <system threads="0" />
-    <!-- Each experimental run is 120 seconds long -->
     <experiment length="120"
                 ticks_per_second="10"
                 random_seed="312" />
@@ -25,7 +24,7 @@
   <controllers>
 
     <footbot_nn_controller id="fnn"
-                           library="build/controllers/footbot_nn/libfootbot_nn.so">
+                           library="build/controllers/footbot_nn/libfootbot_nn">
       <actuators>
         <differential_steering implementation="default" />
       </actuators>
@@ -33,8 +32,10 @@
         <footbot_proximity implementation="default"    show_rays="false" />
         <footbot_light     implementation="rot_z_only" show_rays="false" />
       </sensors>
+      <!--  put here the network data (best_*.dat files) -->
       <params num_inputs="48"
-              num_outputs="2" />
+              num_outputs="2"
+              parameter_file="best_100.dat" />
     </footbot_nn_controller>
 
   </controllers>
@@ -42,8 +43,10 @@
   <!-- ****************** -->
   <!-- * Loop functions * -->
   <!-- ****************** -->
-  <loop_functions library="build/loop_functions/evolution_loop_functions/libevolution_loop_functions.so"
-                  label="evolution_loop_functions" />
+  <!-- Attribute 'trial' contains which trial to run (values: [0-4]) -->
+  <loop_functions library="build/loop_functions/galib_phototaxis_loop_functions/libgalib_phototaxis_loop_functions"
+                  label="galib_phototaxis_loop_functions"
+                  trial="0" />
 
   <!-- *********************** -->
   <!-- * Arena configuration * -->
@@ -99,7 +102,12 @@
   <!-- ****************** -->
   <!-- * Visualization * -->
   <!-- ****************** -->
-  <!-- We don't want nor need a visualization during evolution -->
-  <visualization />
+  <visualization>
+    <qt-opengl>
+      <camera>
+        <placement idx="0" position="2.5,2.5,6" look_at="2.5,2.5,0" lens_focal_length="20" />
+      </camera>
+    </qt-opengl>
+  </visualization>
 
 </argos-configuration>

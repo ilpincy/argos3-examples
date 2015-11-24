@@ -32,10 +32,10 @@
         <footbot_proximity implementation="default"    show_rays="false" />
         <footbot_light     implementation="rot_z_only" show_rays="false" />
       </sensors>
-      <!--  put here data the network data (best_*.dat files) -->
+      <!--  put here the network data (best_*.dat files) -->
       <params num_inputs="48"
               num_outputs="2"
-              parameter_file="embedding/galib/best_499.dat" />
+              parameter_file="embedding/mpga/best_100.dat" />
     </footbot_nn_controller>
 
   </controllers>
@@ -44,8 +44,8 @@
   <!-- * Loop functions * -->
   <!-- ****************** -->
   <!-- Attribute 'trial' contains which trial to run (values: [0-4]) -->
-  <loop_functions library="build/loop_functions/evolution_loop_functions/libevolution_loop_functions"
-                  label="evolution_loop_functions"
+  <loop_functions library="build/loop_functions/mpga_loop_functions/libmpga_phototaxis_loop_functions"
+                  label="mpga_phototaxis_loop_functions"
                   trial="0" />
 
   <!-- *********************** -->

@@ -1,0 +1,105 @@
+<?xml version="1.0" ?>
+
+<!-- *************************************************** -->
+<!-- * A fully commented XML is diffusion_1.xml. Refer * -->
+<!-- * to it to have full information about what       * -->
+<!-- * these options mean.                             * -->
+<!-- *************************************************** -->
+
+<argos-configuration>
+
+  <!-- ************************* -->
+  <!-- * General configuration * -->
+  <!-- ************************* -->
+  <framework>
+    <system threads="0" />
+    <!-- Each experimental run is 120 seconds long -->
+    <experiment length="120"
+                ticks_per_second="10"
+                random_seed="312" />
+  </framework>
+
+  <!-- *************** -->
+  <!-- * Controllers * -->
+  <!-- *************** -->
+  <controllers>
+
+    <footbot_nn_controller id="fnn"
+                           library="build/controllers/footbot_nn/libfootbot_nn">
+      <actuators>
+        <differential_steering implementation="default" />
+      </actuators>
+      <sensors>
+        <footbot_proximity implementation="default"    show_rays="false" />
+        <footbot_light     implementation="rot_z_only" show_rays="false" />
+      </sensors>
+      <params num_inputs="48"
+              num_outputs="2" />
+    </footbot_nn_controller>
+
+  </controllers>
+
+  <!-- ****************** -->
+  <!-- * Loop functions * -->
+  <!-- ****************** -->
+  <loop_functions library="build/loop_functions/mpga_loop_functions/libmpga_phototaxis_loop_functions"
+                  label="mpga_phototaxis_loop_functions" />
+
+  <!-- *********************** -->
+  <!-- * Arena configuration * -->
+  <!-- *********************** -->
+  <arena size="6, 6, 2" center="2.5,2.5,1">
+
+    <!--
+        Here we just put the static elements of the environment (the walls
+        and the light).
+        The dynamic ones, in this case the foot-bot, are placed by the
+        loop functions at the beginning of each experimental run.
+    -->
+
+    <box id="wall_north" size="5,0.1,0.5" movable="false">
+      <body position="2.5,5,0" orientation="0,0,0" />
+    </box>
+
+    <box id="wall_south" size="5,0.1,0.5" movable="false">
+      <body position="2.5,0,0" orientation="0,0,0" />
+    </box>
+
+    <box id="wall_east" size="0.1,5,0.5" movable="false">
+      <body position="0,2.5,0" orientation="0,0,0" />
+    </box>
+
+    <box id="wall_west" size="0.1,5,0.5" movable="false">
+      <body position="5,2.5,0" orientation="0,0,0" />
+    </box>
+
+    <light id="light"
+           position="0,0,1"
+           orientation="0,0,0"
+           color="yellow"
+           intensity="3"
+           medium="leds" />
+
+  </arena>
+
+  <!-- ******************* -->
+  <!-- * Physics engines * -->
+  <!-- ******************* -->
+  <physics_engines>
+    <dynamics2d id="dyn2d" />
+  </physics_engines>
+
+  <!-- ********* -->
+  <!-- * Media * -->
+  <!-- ********* -->
+  <media>
+    <led id="leds" />
+  </media>
+
+  <!-- ****************** -->
+  <!-- * Visualization * -->
+  <!-- ****************** -->
+  <!-- We don't want nor need a visualization during evolution -->
+  <visualization />
+
+</argos-configuration>
