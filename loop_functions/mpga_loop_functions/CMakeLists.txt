@@ -1,9 +1,10 @@
 # Compile MPGA library (generic library for multi-process genetic algorithm)
-add_library(mpga
+add_library(mpga SHARED
   mpga.h mpga.cpp
   mpga_loop_functions.h mpga_loop_functions.cpp)
 target_link_libraries(mpga
-  argos3core_simulator)
+  argos3core_simulator
+  -lrt)
 
 # Compile phototaxis example
 add_library(mpga_phototaxis_loop_functions SHARED

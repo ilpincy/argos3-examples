@@ -1,11 +1,13 @@
 #include "mpga.h"
 #include <cstdio>
 #include <sys/types.h>
+#include <sys/wait.h>
 #include <unistd.h>
 #include <sys/mman.h>
 #include <fcntl.h>
 #include <signal.h>
 #include <iostream>
+#include <fstream>
 #include <argos3/core/simulator/simulator.h>
 #include "mpga_loop_functions.h"
 
@@ -203,10 +205,10 @@ void CMPGA::LaunchARGoS(UInt32 un_slave_id) {
    ::signal(SIGTERM, SlaveHandleSIGTERM);
    /* Initialize ARGoS */
    /* Redirect LOG and LOGERR to dedicated files to prevent clutter on the screen */
-   std::ofstream cLOGFile("ARGoS_LOG_" + ToString(::getpid()), std::ios::out);
+   std::ofstream cLOGFile(std::string("ARGoS_LOG_" + ToString(::getpid())).c_str(), std::ios::out);
    LOG.DisableColoredOutput();
    LOG.GetStream().rdbuf(cLOGFile.rdbuf());
-   std::ofstream cLOGERRFile("ARGoS_LOGERR_" + ToString(::getpid()), std::ios::out);
+   std::ofstream cLOGERRFile(std::string("ARGoS_LOGERR_" + ToString(::getpid())).c_str(), std::ios::out);
    LOGERR.DisableColoredOutput();
    LOGERR.GetStream().rdbuf(cLOGERRFile.rdbuf());
    /* The CSimulator class of ARGoS is a singleton. Therefore, to
