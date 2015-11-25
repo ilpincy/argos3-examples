@@ -3,8 +3,10 @@ add_library(mpga SHARED
   mpga.h mpga.cpp
   mpga_loop_functions.h mpga_loop_functions.cpp)
 target_link_libraries(mpga
-  argos3core_simulator
-  -lrt)
+  argos3core_simulator)
+if(NOT APPLE)
+target_link_libraries(mpga rt)
+endif(NOT APPLE)
 
 # Compile phototaxis example
 add_library(mpga_phototaxis_loop_functions SHARED
