@@ -178,14 +178,24 @@ for the flocking experiment, and
 $ argos3 -c experiments/foraging.argos
 
 for the foraging experiment.
-The evolution experiment is divided in two parts. The
+The evolution experiments are divided in two parts. The
 command
 
 $ build/embedding/galib/galib_phototaxis
 
-runs the evolution process. Then, the command
+runs the evolution process with the GALib library. Then, the command
 
 $ argos3 -c experiments/galib-trial.argos
+
+allows one to test a specific neural network.
+
+The command
+
+$ build/embedding/mpga/mpga_phototaxis
+
+runs the multi-process genetic algorithm. Then, the command
+
+$ argos3 -c experiments/mpga-trial.argos
 
 allows one to test a specific neural network.
 
