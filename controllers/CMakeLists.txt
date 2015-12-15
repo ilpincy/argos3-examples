@@ -6,11 +6,7 @@ add_subdirectory(footbot_flocking)
 add_subdirectory(footbot_gripping)
 add_subdirectory(footbot_foraging)
 add_subdirectory(footbot_manualcontrol)
+add_subdirectory(footbot_nn)
 add_subdirectory(eyebot_circle)
 add_subdirectory(eyebot_flocking)
 add_subdirectory(epuck_obstacleavoidance)
-
-# Compile the neural network controllers only if GALIB was found
-if(GALIB_FOUND)
-  add_subdirectory(footbot_nn)
-endif(GALIB_FOUND)
