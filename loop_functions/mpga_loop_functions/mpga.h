@@ -11,6 +11,27 @@ using namespace argos;
 /*
  * A simple multi-process genetic algorithm that launches multiple
  * instances of ARGoS in several parallel processes.
+ *
+ * The program is structured into a master process and a number of
+ * slave processes. The master process manages initialization,
+ * selection, crossover, and mutation; the slave processes are used to
+ * perform the trials.
+ *
+ * The slave processes load ARGoS once, and then keep resetting the
+ * simulation to prepare each trial. The .argos file contains only the
+ * parts that do not change over the trials; the loop functions manage
+ * the rest.
+ *
+ * Communication between master and slaves occurs in two ways:
+ * - signals are sent to suspend and resume processes;
+ * - a memory-mapped, shared memory file is used for data exchange.
+ *
+ * The benefit of this solution is that the optimization proceeds in a
+ * parallel fashion, without the need to destroy and reload ARGoS for
+ * every trial.
+ *
+ * To use this class, your loop functions must inherit from
+ * CMPGALoopFunctions.
  */
 class CMPGA {
    
