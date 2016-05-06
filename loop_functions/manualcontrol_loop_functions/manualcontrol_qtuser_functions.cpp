@@ -25,7 +25,7 @@ CManualControlQTUserFunctions::CManualControlQTUserFunctions() :
 void CManualControlQTUserFunctions::KeyPressed(QKeyEvent* pc_event) {
    /* Make sure that a controller was set */
    if(!m_pcController) {
-      GetOpenGLWidget().KeyPressed(pc_event);
+      GetQTOpenGLWidget().KeyPressed(pc_event);
       return;
    }
    switch(pc_event->key()) {
@@ -51,7 +51,7 @@ void CManualControlQTUserFunctions::KeyPressed(QKeyEvent* pc_event) {
          break;
       default:
          /* Unknown key */
-         GetOpenGLWidget().KeyPressed(pc_event);
+         GetQTOpenGLWidget().KeyPressed(pc_event);
          break;
    }
 }
@@ -62,7 +62,7 @@ void CManualControlQTUserFunctions::KeyPressed(QKeyEvent* pc_event) {
 void CManualControlQTUserFunctions::KeyReleased(QKeyEvent* pc_event) {
    /* Make sure that a controller was set */
    if(!m_pcController) {
-      GetOpenGLWidget().KeyReleased(pc_event);
+      GetQTOpenGLWidget().KeyReleased(pc_event);
       return;
    }
    switch(pc_event->key()) {
@@ -88,7 +88,7 @@ void CManualControlQTUserFunctions::KeyReleased(QKeyEvent* pc_event) {
          break;
       default:
          /* Unknown key */
-         GetOpenGLWidget().KeyReleased(pc_event);
+         GetQTOpenGLWidget().KeyReleased(pc_event);
          break;
    }
 }
