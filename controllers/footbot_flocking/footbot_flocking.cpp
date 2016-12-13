@@ -174,14 +174,18 @@ CVector2 CFootBotFlocking::FlockingVector() {
             ++unBlobsSeen;
          }
       }
-      /* Divide the accumulator by the number of blobs seen */
-      cAccum /= unBlobsSeen;
-      /* Clamp the length of the vector to the max speed */
-      if(cAccum.Length() > m_sWheelTurningParams.MaxSpeed) {
-         cAccum.Normalize();
-         cAccum *= m_sWheelTurningParams.MaxSpeed;
+      if(unBlobsSeen > 0) {
+         /* Divide the accumulator by the number of blobs seen */
+         cAccum /= unBlobsSeen;
+         /* Clamp the length of the vector to the max speed */
+         if(cAccum.Length() > m_sWheelTurningParams.MaxSpeed) {
+            cAccum.Normalize();
+            cAccum *= m_sWheelTurningParams.MaxSpeed;
+         }
+         return cAccum;
       }
-      return cAccum;
+      else
+         return CVector2();
    }
    else {
       return CVector2();
