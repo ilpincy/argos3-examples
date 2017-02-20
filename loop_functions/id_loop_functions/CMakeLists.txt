@@ -7,4 +7,4 @@ target_link_libraries(id_loop_functions
   argos3plugin_simulator_entities
   argos3plugin_simulator_footbot
   argos3plugin_simulator_qtopengl
-  ${QT_LIBRARIES} ${GLUT_LIBRARY} ${OPENGL_LIBRARY})
+  ${ARGOS_QTOPENGL_LIBRARIES})

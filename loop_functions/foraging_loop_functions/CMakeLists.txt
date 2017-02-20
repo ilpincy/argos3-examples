@@ -18,5 +18,5 @@ target_link_libraries(foraging_loop_functions
   argos3plugin_simulator_media)
 
 if(ARGOS_COMPILE_QTOPENGL)
-target_link_libraries(foraging_loop_functions argos3plugin_simulator_qtopengl)
+  target_link_libraries(foraging_loop_functions argos3plugin_simulator_qtopengl)
 endif(ARGOS_COMPILE_QTOPENGL)
