@@ -42,10 +42,10 @@
   <!-- *********************** -->
   <!-- * Arena configuration * -->
   <!-- *********************** -->
-  <arena size="20,20,1" center="0,0,0.5">
+  <arena size="30,30,1" center="0,0,0.5">
 
     <light id="light"
-           position="0,0,0.5"
+           position="8.9,2.7,0.5"
            orientation="0,0,0"
            color="yellow"
            intensity="3.0"
@@ -60,6 +60,28 @@
           chosen from a gaussian distribution, whose mean is zero degrees
           and standard deviation is 360 degrees.
     -->
+    
+    <foot-bot id="fb0" omnidirectional_camera_aperture="80">
+        <body position="1.1,2.5,0" orientation="0,0,0" />
+        <controller config="ffc" />
+    </foot-bot>
+    
+    <foot-bot id="fb1" omnidirectional_camera_aperture="80">
+        <body position="2.4,3.7,0" orientation="0,0,0" />
+        <controller config="ffc" />
+    </foot-bot>
+    
+    <foot-bot id="fb2" omnidirectional_camera_aperture="80">
+        <body position="2.3,1.3,0" orientation="0,0,0" />
+        <controller config="ffc" />
+    </foot-bot>
+    
+    <foot-bot id="fb3" omnidirectional_camera_aperture="80">
+        <body position="3.5,2.4,0" orientation="0,0,0" />
+        <controller config="ffc" />
+    </foot-bot>
+    
+    <!--
     <distribute>
       <position method="uniform" min="4,4,0" max="5,5,0" />
       <orientation method="gaussian" mean="0,0,0" std_dev="360,0,0" />
@@ -69,7 +91,7 @@
         </foot-bot>
       </entity>
     </distribute>
-
+    -->
   </arena>
 
   <!-- ******************* -->
