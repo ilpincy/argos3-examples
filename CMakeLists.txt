@@ -14,7 +14,7 @@ endif(APPLE)
 set(CMAKE_MACOSX_RPATH 0)
 
 # Set the path where CMake will find additional scripts
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_SOURCE_DIR}/cmake)
+set(CMAKE_MODULE_PATH $ENV{CMAKE_MODULE_PATH} ${CMAKE_SOURCE_DIR}/cmake)
 
 # Find the ARGoS package, make sure to save the ARGoS prefix
 find_package(PkgConfig)
