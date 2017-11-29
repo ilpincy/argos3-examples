@@ -168,9 +168,9 @@ CVector2 CEyeBotFlocking::VectorToLight() {
       cAccum += CVector2(tReadings[i].Value, tReadings[i].Angle);
    }
    if(cAccum.Length() > 0.0f) {
-      /* Make the vector long as 1/4 of the max speed */
+      /* Make the vector long as 1/10 of the max speed */
       cAccum.Normalize();
-      cAccum *= 0.25f * m_sFlockingParams.MaxInteraction;
+      cAccum *= 0.1f * m_sFlockingParams.MaxInteraction;
    }
    return cAccum;
 }
