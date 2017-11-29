@@ -202,22 +202,28 @@ void CFootBotFlocking::SetWheelSpeedsFromVector(const CVector2& c_heading) {
    Real fHeadingLength = c_heading.Length();
    /* Clamp the speed so that it's not greater than MaxSpeed */
    Real fBaseAngularWheelSpeed = Min<Real>(fHeadingLength, m_sWheelTurningParams.MaxSpeed);
-
-   /* Turning state switching conditions */
-   if(Abs(cHeadingAngle) <= m_sWheelTurningParams.NoTurnAngleThreshold) {
-      /* No Turn, heading angle very small */
-      m_sWheelTurningParams.TurningMechanism = SWheelTurningParams::NO_TURN;
+   /* State transition logic */
+   if(m_sWheelTurningParams.TurningMechanism == SWheelTurningParams::HARD_TURN) {
+      if(Abs(cHeadingAngle) <= m_sWheelTurningParams.SoftTurnOnAngleThreshold) {
+         m_sWheelTurningParams.TurningMechanism = SWheelTurningParams::SOFT_TURN;
+      }
    }
-   else if(Abs(cHeadingAngle) > m_sWheelTurningParams.HardTurnOnAngleThreshold) {
-      /* Hard Turn, heading angle very large */
-      m_sWheelTurningParams.TurningMechanism = SWheelTurningParams::HARD_TURN;
+   if(m_sWheelTurningParams.TurningMechanism == SWheelTurningParams::SOFT_TURN) {
+      if(Abs(cHeadingAngle) > m_sWheelTurningParams.HardTurnOnAngleThreshold) {
+         m_sWheelTurningParams.TurningMechanism = SWheelTurningParams::HARD_TURN;
+      }
+      else if(Abs(cHeadingAngle) <= m_sWheelTurningParams.NoTurnAngleThreshold) {
+         m_sWheelTurningParams.TurningMechanism = SWheelTurningParams::NO_TURN;
+      }
    }
-   else if(m_sWheelTurningParams.TurningMechanism == SWheelTurningParams::NO_TURN &&
-           Abs(cHeadingAngle) > m_sWheelTurningParams.SoftTurnOnAngleThreshold) {
-      /* Soft Turn, heading angle in between the two cases */
-      m_sWheelTurningParams.TurningMechanism = SWheelTurningParams::SOFT_TURN;
+   if(m_sWheelTurningParams.TurningMechanism == SWheelTurningParams::NO_TURN) {
+      if(Abs(cHeadingAngle) > m_sWheelTurningParams.HardTurnOnAngleThreshold) {
+         m_sWheelTurningParams.TurningMechanism = SWheelTurningParams::HARD_TURN;
+      }
+      else if(Abs(cHeadingAngle) > m_sWheelTurningParams.NoTurnAngleThreshold) {
+         m_sWheelTurningParams.TurningMechanism = SWheelTurningParams::SOFT_TURN;
+      }
    }
-
    /* Wheel speeds based on current turning state */
    Real fSpeed1, fSpeed2;
    switch(m_sWheelTurningParams.TurningMechanism) {
@@ -227,7 +233,6 @@ void CFootBotFlocking::SetWheelSpeedsFromVector(const CVector2& c_heading) {
          fSpeed2 = fBaseAngularWheelSpeed;
          break;
       }
-
       case SWheelTurningParams::SOFT_TURN: {
          /* Both wheels go straight, but one is faster than the other */
          Real fSpeedFactor = (m_sWheelTurningParams.HardTurnOnAngleThreshold - Abs(cHeadingAngle)) / m_sWheelTurningParams.HardTurnOnAngleThreshold;
@@ -235,7 +240,6 @@ void CFootBotFlocking::SetWheelSpeedsFromVector(const CVector2& c_heading) {
          fSpeed2 = fBaseAngularWheelSpeed + fBaseAngularWheelSpeed * (1.0 - fSpeedFactor);
          break;
       }
-
       case SWheelTurningParams::HARD_TURN: {
          /* Opposite wheel speeds */
          fSpeed1 = -m_sWheelTurningParams.MaxSpeed;
@@ -243,7 +247,6 @@ void CFootBotFlocking::SetWheelSpeedsFromVector(const CVector2& c_heading) {
          break;
       }
    }
-
    /* Apply the calculated speeds to the appropriate wheels */
    Real fLeftWheelSpeed, fRightWheelSpeed;
    if(cHeadingAngle > CRadians::ZERO) {
