@@ -15,7 +15,7 @@
 /****************************************/
 
 /* File name for shared memory area */
-static const char* SHARED_MEMORY_FILE = "/MPGA_SHARED_MEMORY" + ::getpid();
+static const std::string SHARED_MEMORY_FILE = "/MPGA_SHARED_MEMORY_" + ToString(getpid());
 
 /****************************************/
 /****************************************/
@@ -321,11 +321,11 @@ CMPGA::CSharedMem::CSharedMem(UInt32 un_genome_size,
    m_unGenomeSize(un_genome_size),
    m_unPopSize(un_pop_size) {
    /* Create shared memory area for master-slave communication */
-   m_nSharedMemFD = ::shm_open(SHARED_MEMORY_FILE,
+   m_nSharedMemFD = ::shm_open(SHARED_MEMORY_FILE.c_str(),
                                O_RDWR | O_CREAT,
                                S_IRUSR | S_IWUSR);
    if(m_nSharedMemFD < 0) {
-      ::perror(SHARED_MEMORY_FILE);
+      ::perror(SHARED_MEMORY_FILE.c_str());
       exit(1);
    }
    /* Resize shared memory area to contain the population data
@@ -356,7 +356,7 @@ CMPGA::CSharedMem::CSharedMem(UInt32 un_genome_size,
 CMPGA::CSharedMem::~CSharedMem() {
    munmap(m_pfSharedMem, m_unPopSize * (m_unGenomeSize+1) * sizeof(Real));
    close(m_nSharedMemFD);
-   shm_unlink(SHARED_MEMORY_FILE);
+   shm_unlink(SHARED_MEMORY_FILE.c_str());
 }
 
 /****************************************/
