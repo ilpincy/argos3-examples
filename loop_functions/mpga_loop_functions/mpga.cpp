@@ -15,7 +15,7 @@
 /****************************************/
 
 /* File name for shared memory area */
-static const char* SHARED_MEMORY_FILE = "/MPGA_SHARED_MEMORY";
+static const char* SHARED_MEMORY_FILE = "/MPGA_SHARED_MEMORY" + ::getpid();
 
 /****************************************/
 /****************************************/
