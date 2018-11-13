@@ -98,7 +98,7 @@ the GALIB library is found. The library is searched for in /usr or
 'ccmake' command to set the correct path. You can download GALIB at
 http://lancet.mit.edu/ga/ or install it through your system's package
 manager. On Ubuntu type 'sudo apt-get install libga-dev', while on
-HomeBrew type 'brew install homebrew/science/galib'.
+HomeBrew type 'brew install brewsci/science/galib'.
 
 
 
