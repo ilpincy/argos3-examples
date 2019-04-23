@@ -10,6 +10,7 @@
 
 FIND_PATH(GALIB_INCLUDE_DIR
   NAMES
+  ga.h
   ga/ga.h
   PATHS
   /usr/include
