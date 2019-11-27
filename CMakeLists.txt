@@ -36,7 +36,7 @@ if(GALIB_FOUND)
 endif(GALIB_FOUND)
 
 # Find Lua
-find_package(Lua52 REQUIRED)
+find_package(Lua53 REQUIRED)
 
 # Set ARGoS include dir
 include_directories(${CMAKE_SOURCE_DIR} ${ARGOS_INCLUDE_DIRS} ${LUA_INCLUDE_DIR})
