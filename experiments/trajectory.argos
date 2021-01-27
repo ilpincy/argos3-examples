@@ -112,7 +112,12 @@
     <qt-opengl>
       <user_functions library="build/loop_functions/trajectory_loop_functions/libtrajectory_loop_functions"
                       label="trajectory_qtuser_functions" />
+      <camera>
+        <placements>
+          <placement index="0" position="-6.83677,-0.0492575,7.1301" look_at="-6.14438,-0.0492575,6.40857" up="0.721522,-3.4075e-17,0.692391" lens_focal_length="65" />
+        </placements>
+      </camera>
     </qt-opengl>
   </visualization>
-
+  
 </argos-configuration>

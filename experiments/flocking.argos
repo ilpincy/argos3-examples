@@ -93,10 +93,9 @@
   <visualization>
     <qt-opengl>
       <camera>
-        <placement idx="0"
-                   position="5.33539,5.60355,1.06253"
-                   look_at="4.70428,4.92503,0.686605"
-                   lens_focal_length="20" />
+        <placements>
+          <placement index="0" position="3.47447,8.20587,3.42167" look_at="3.94263,7.5512,2.82817" up="0.345221,-0.48276,0.804839" lens_focal_length="20" />
+        </placements>
       </camera>
     </qt-opengl>
   </visualization>

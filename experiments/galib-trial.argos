@@ -105,7 +105,9 @@
   <visualization>
     <qt-opengl>
       <camera>
-        <placement idx="0" position="2.5,2.5,6" look_at="2.5,2.5,0" lens_focal_length="20" />
+        <placements>
+          <placement index="0" position="2.5,2.5,6" look_at="2.5,2.5,0" lens_focal_length="20" />
+        </placements>
       </camera>
     </qt-opengl>
   </visualization>

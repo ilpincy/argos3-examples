@@ -76,10 +76,12 @@
   <visualization>
     <qt-opengl>
       <camera>
-        <placement idx="0" position="-4.59862,0,4.59862" look_at="-3.80581,0,3.98914" lens_focal_length="20" />
-        <placement idx="1" position="-1.22369,0,9.18125" look_at="-1.1384,-0.000852933,8.1849" lens_focal_length="20" />
+        <placements>
+          <placement index="0" position="-4.59862,0,4.59862" look_at="-3.80581,0,3.98914" lens_focal_length="20" />
+          <placement index="1" position="-1.22369,0,9.18125" look_at="-1.1384,-0.000852933,8.1849" lens_focal_length="20" />
+        </placements>
       </camera>
     </qt-opengl>
   </visualization>
-
+  
 </argos-configuration>
