@@ -19,6 +19,11 @@ set(CMAKE_MACOSX_RPATH 0)
 # Set the path where CMake will find additional scripts
 set(CMAKE_MODULE_PATH $ENV{CMAKE_MODULE_PATH} ${CMAKE_SOURCE_DIR}/cmake)
 
+# Use C++17
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
 # Find the ARGoS package, make sure to save the ARGoS prefix
 find_package(PkgConfig)
 pkg_check_modules(ARGOS REQUIRED argos3_simulator)

@@ -1,3 +1,4 @@
+include_directories(${ARGOS_QTOPENGL_INCLUDE_DIRS})
 add_library(trajectory_loop_functions MODULE 
   trajectory_loop_functions.h
   trajectory_qtuser_functions.h

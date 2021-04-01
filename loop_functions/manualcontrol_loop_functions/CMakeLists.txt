@@ -1,3 +1,5 @@
+include_directories(${ARGOS_QTOPENGL_INCLUDE_DIRS})
+
 add_library(manualcontrol_loop_functions MODULE 
   manualcontrol_qtuser_functions.h
   manualcontrol_qtuser_functions.cpp)

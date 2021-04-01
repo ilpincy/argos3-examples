@@ -2,6 +2,7 @@ link_directories(${CMAKE_BINARY_DIR}/controllers/footbot_foraging)
 set(foraging_loop_functions_SOURCES foraging_loop_functions.cpp)
 
 if(ARGOS_COMPILE_QTOPENGL)
+  include_directories(${ARGOS_QTOPENGL_INCLUDE_DIRS})
   set(foraging_loop_functions_SOURCES
     ${foraging_loop_functions_SOURCES}
     foraging_qt_user_functions.cpp)
