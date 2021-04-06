@@ -10,11 +10,11 @@ add_subdirectory(mpga_loop_functions)
 add_subdirectory(custom_distributions_loop_functions)
 
 # If Qt+OpenGL dependencies were found, descend into these directories
-if(ARGOS_COMPILE_QTOPENGL)
+if(ARGOS_QTOPENGL_FOUND)
   add_subdirectory(trajectory_loop_functions)
   add_subdirectory(id_loop_functions)
   add_subdirectory(manualcontrol_loop_functions)
-endif(ARGOS_COMPILE_QTOPENGL)
+endif(ARGOS_QTOPENGL_FOUND)
 
 # If GALIB was found, also descend into galib_phototaxis_loop_functions
 if(GALIB_FOUND)
