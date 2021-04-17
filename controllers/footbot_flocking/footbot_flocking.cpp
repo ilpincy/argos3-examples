@@ -103,10 +103,7 @@ void CFootBotFlocking::Init(TConfigurationNode& t_node) {
    /*
     * Other init stuff
     */
-   /* Enable camera filtering */
-   m_pcCamera->Enable();
-   /* Set beacon color to all red to be visible for other robots */
-   m_pcLEDs->SetSingleColor(12, CColor::RED);
+   Reset();
 }
 
 /****************************************/
@@ -114,6 +111,16 @@ void CFootBotFlocking::Init(TConfigurationNode& t_node) {
 
 void CFootBotFlocking::ControlStep() {
    SetWheelSpeedsFromVector(VectorToLight() + FlockingVector());
+}
+
+/****************************************/
+/****************************************/
+
+void CFootBotFlocking::Reset() {
+   /* Enable camera filtering */
+   m_pcCamera->Enable();
+   /* Set beacon color to all red to be visible for other robots */
+   m_pcLEDs->SetSingleColor(12, CColor::RED);
 }
 
 /****************************************/
