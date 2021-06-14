@@ -139,16 +139,15 @@ possible causes:
    ARGoS3 through the packages or with the command 'sudo make install'
    in the ARGoS3 build directory.
 
-2. pkg-config can't find the file argos3_simulator.pc. When you
-   install ARGoS3 from a package, this file is located in
-   /usr/lib/pkgconfig/. When you install ARGoS3 from the sources, this
-   file is located in $CMAKE_INSTALL_PREFIX/lib/pkgconfig/. If you
-   don't set $CMAKE_INSTALL_PREFIX explicitly before compiling, by
-   default it is set to /usr/local.  If the file is present and
-   pkg-config can't find it, add the directory where it's located to
-   the environment variable PKG_CONFIG_PATH, e.g.
-
-$ export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig/
+2. You have installed ARGoS in a non-standard location. The standard
+   locations are /usr and /usr/local. If you did not install ARGoS
+   there, CMake won't be able to find the file ARGoSConfig.cmake at
+   PREFIX/share/argos3/cmake. The solution in this case is to run
+   
+   $ cmake -DCMAKE_MODULE_PATH=/path/to/argos3/share/cmake
+   
+   Make sure that the folder /path/to/argos3/share/cmake contains the
+   file ARGoSConfig.cmake.
 
 
 
