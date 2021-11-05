@@ -40,7 +40,7 @@ sync, but over time, seeing each other's LEDs, they synchronize.  In
 this example you'll see how to use the camera, and how to distribute
 robots in a grid.
 
-### FLocking
+### Flocking
 This example experiment shows how to achieve foraging through the well
 known Lennard-Jones potential.  The robots light up their central LED
 (called the beacon) in red. They use the omnidirectional camera to
